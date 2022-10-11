@@ -16,3 +16,8 @@ The backend app for FIRST Competition scouting.
 Vanessa - DB
 Alyx - OpenCV, DB
 Erin - Django, Frontend
+
+## Steps
+`python3 -m venv .`
+`source bin/activate`
+`pip install -r requirements.txt`
