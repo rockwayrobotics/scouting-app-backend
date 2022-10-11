@@ -105,6 +105,9 @@ celerybeat.pid
 .env
 .venv
 env/
+bin/
+lib64
+pyvenv.cfg
 venv/
 ENV/
 env.bak/
