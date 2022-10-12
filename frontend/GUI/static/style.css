@@ -1,0 +1,14 @@
+:root {
+	--foreground-color: #36454F;
+	--background-color: #F9F6EE;
+}
+
+body {
+	font-family: 'Cantarell', sans;
+	font-size: 16px;
+	background: var(--background-color);
+	color: var(--foreground-color);
+	margin: 0 auto;
+	max-width: 15cm;
+	text-align: center;
+}
