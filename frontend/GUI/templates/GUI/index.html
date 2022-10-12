@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/style.css">
+
+	<title>Scouting App</title>
+</head>
+<body>
+	<h1>Scouting</h1>
+	{% if latest_data_list %}
+		<ul>
+		{% for team in latest_data_list %}
+		<li><a href="/team/{{ team.id }}/">{{team.name}} ({{team.id}})</a></li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No team data is available</p>
+	{% endif %}
+</body>
+</html>
