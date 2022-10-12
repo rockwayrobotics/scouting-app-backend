@@ -7,7 +7,10 @@ from .models import TeamData
 class MainView(View):
     def get(self, request, team=0):
         if team:
-            team_data = TeamData.objects.get(id=team)
+            try:
+                team_data = TeamData.objects.get(id=team)
+            except TeamData.DoesNotExist:
+                raise Http404("Team does not exist")
             template = loader.get_template('GUI/team.html')
             context = {
                     'team': team_data,
