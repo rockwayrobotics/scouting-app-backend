@@ -18,6 +18,10 @@ Alyx - OpenCV, DB
 Erin - Django, Frontend
 
 ## Steps
+### Set Up
 `python3 -m venv .`
 `source bin/activate`
 `pip install -r requirements.txt`
+
+### Run
+`python manage.py runserver`
