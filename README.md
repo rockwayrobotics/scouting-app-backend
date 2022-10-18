@@ -29,6 +29,8 @@ Erin - Django, Frontend
 `python3 -m venv .`
 `source bin/activate`
 `pip install -r requirements.txt`
+`cd frontend/`
+`python manage.py migrate`
 
 ### Run
 `python manage.py runserver`
