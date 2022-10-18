@@ -3,6 +3,7 @@ from django.views import View
 from django.template import loader
 
 from .models import TeamData
+from .opencv import test_function
 
 class MainView(View):
     def get(self, request, team=0):
@@ -18,6 +19,9 @@ class MainView(View):
             return HttpResponse(template.render(context, request))
 
         else:
+            # start OpenCV stuff here
+
+            test_function()
             latest_data_list = TeamData.objects.order_by('-record_date')[:5]
             template = loader.get_template('GUI/index.html')
             context = {
