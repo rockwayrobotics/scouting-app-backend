@@ -1,6 +1,13 @@
 # Scouting App Backend
 The backend app for FIRST Competition scouting.
 
+## To-Do
+- [x] Django
+- [x] Vision Code
+- [ ] Integrate VC
+- [ ] Make it pretty
+- [ ] Make it epic
+
 ## Technologies
 - Python (🚀 BLAZINGLY SLOW 🚀 MEMORY UNSAFE 🚀)
 - OpenCV - Reading QR's
