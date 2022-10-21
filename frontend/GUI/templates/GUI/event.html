@@ -1,0 +1,13 @@
+<title> {{ event_name }} </title>
+
+<h1> {{ event_name }} </h1>
+
+{% if latest_match_list %}
+    <ul>
+    {% for match in latest_match_list %}
+        <li><a href="match/{{ match.id }}/">Match {{ match.match_number }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matches are available.</p>
+{% endif %}

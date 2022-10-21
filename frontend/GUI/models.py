@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -28,3 +29,44 @@ class TeamData(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class event(models.Model):
+    name = models.CharField(max_length=200)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    def __str__(self):
+        return str(self.name)
+    
+
+class team(models.Model):
+    number = models.IntegerField(default=0)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "Team " + str(self.number)
+
+class matchResult(models.Model):
+    # metadata
+    match_number = models.IntegerField(default=0)
+    team_number = models.IntegerField(default=0)
+    team_reference = models.ForeignKey(team, on_delete=models.CASCADE)
+    event = models.ForeignKey(event, on_delete=models.CASCADE)
+    recorded_time = models.DateTimeField(default=datetime.datetime.now())
+
+    # auto
+    auto_ball = models.IntegerField(default=0)
+    auto_move = models.BooleanField(default=False)
+
+    # teleop
+    teleop_ball = models.IntegerField(default=0)
+
+    # climb
+    climb_level = models.IntegerField(default=0)
+    climb_time = models.IntegerField(default=0)
+
+    # penalty
+    penalty = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "Results - Match " + str(self.match_number) +  " Team " + str(self.team_number)

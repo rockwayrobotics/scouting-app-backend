@@ -1,0 +1,14 @@
+<title> {{ event_name }} </title>
+
+<h1> {{ event_name }} </h1>
+<h2> Match {{ match_number }} </h2>
+
+{% if latest_match_list %}
+    <ul>
+    {% for match in latest_match_list %}
+        <li><a href="team/{{ match.team_number }}/">Team {{ match.team_number }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No team data is available for this match.</p>
+{% endif %}
