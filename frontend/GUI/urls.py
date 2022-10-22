@@ -10,6 +10,6 @@ urlpatterns = [
     path('event/<int:event_id>/team/<int:team_number>/match/<int:match_number>/', views.team_on_match, name="team results on specific match"),
     path('event/<int:event_id>/match/<int:match_number>/team/<int:team_number>/', views.team_on_match, name="match results for specific team number"),
     path('event/<int:event_id>/', views.event_details),
-    path('scan/', views.scan_code)
+    path('event/', views.event_list)
 ]
 
