@@ -3,7 +3,7 @@ from django.views import View
 from django.template import loader
 from django.shortcuts import render
 
-from .models import TeamData, matchResult, event, team
+from .models import TeamData, matchResult, event, team, registration
 from .opencv import test_function
 
 def get(self, request, team=0):
@@ -38,7 +38,7 @@ def match_details(request, event_id, this_match_number):
     except event.DoesNotExist:
         return HttpResponse("Event not found") # improve to return actual html
 
-    this_match = matchResult.objects.filter(linked_event=this_event).filter(id=this_match_number).order_by('linked_team') # List of all matches from event that match the number
+    this_match = matchResult.objects.filter(linked_event=this_event).filter(match_number=this_match_number).order_by('linked_team__number') # List of all matches from event that match the number
     
     context = {
         'latest_match_list': this_match, 'event_name': this_event.name, 'match_number': this_match[:1].get().match_number
@@ -55,7 +55,7 @@ def team_at_event(request, event_id, team_number):
     this_event = event.objects.get(id=event_id)
     this_team = team.objects.get(number=team_number)
 
-    latest_match_list = matchResult.objects.filter(linked_event=this_event).filter(team=this_team).order_by('recorded_time')
+    latest_match_list = matchResult.objects.filter(linked_event=this_event).filter(linked_team=this_team).order_by('recorded_time')
 
     context = {'latest_match_list': latest_match_list, 'event_name': "at " + this_event.name, 'team_number': this_team.number, 'team_name': this_team.name}
     return render(request, 'GUI/teamDetails.html', context)
@@ -72,9 +72,13 @@ def event_details(request, event_id):
 
     this_event = event.objects.get(id=event_id)
 
-    latest_match_list = matchResult.objects.filter(linked_event=this_event).order_by('recorded_time')
+    latest_match_list = matchResult.objects.filter(linked_event=this_event).order_by('match_number')
 
-    context = {'latest_match_list': latest_match_list, 'event_name': this_event.name}
+    unique_match_list = latest_match_list.values_list('match_number').distinct()
+
+    attending_teams = registration.objects.filter(registered_event=this_event).order_by('registered_team__number')
+
+    context = {'latest_match_list': latest_match_list, 'event_name': this_event.name, 'attending_teams': attending_teams, 'unique_match_list': unique_match_list}
     return render(request, 'GUI/event.html', context)
 
 def event_list(request):

@@ -2,12 +2,24 @@
 
 <h1> {{ event_name }} </h1>
 
-{% if latest_match_list %}
+{% if unique_match_list %}
     <ul>
-    {% for match in latest_match_list %}
-        <li><a href="match/{{ match.id }}/">Match {{ match.match_number }}</a></li>
+    {% for match in unique_match_list %}
+        <li><a href="match/{{ match.0 }}/">Match {{ match.0 }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No matches are available.</p>
 {% endif %}
+</nbsp>
+</nbsp>
+{% if attending_teams %}
+    <ul>
+    {% for registration in attending_teams %}
+        <li><a href="team/{{ registration.registered_team.number }}/">Team {{ registration.registered_team.number }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matches are available.</p>
+{% endif %}
+</nbsp>

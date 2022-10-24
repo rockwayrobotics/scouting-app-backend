@@ -46,6 +46,13 @@ class team(models.Model):
     def __str__(self):
         return "Team " + str(self.number)
 
+class registration(models.Model):
+    registered_team = models.ForeignKey(team, on_delete=models.CASCADE)
+    registered_event = models.ForeignKey(event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Team " + str(self.registered_team.number) + " at event " + self.registered_event.name
+
 class matchResult(models.Model):
     # metadata
     match_number = models.IntegerField(default=0)
@@ -73,7 +80,7 @@ class matchResult(models.Model):
     scouter_comments = models.CharField(max_length=500, default="")
 
     def __str__(self):
-        return "Results - Match " + str(self.match_number) +  " Team " + str(self.team.number)
+        return "Results - Match " + str(self.match_number) +  " Team " + str(self.linked_team.number)
 
 # class pitScout(models.Model):
 #     # metadata
