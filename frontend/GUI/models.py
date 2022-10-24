@@ -49,8 +49,8 @@ class team(models.Model):
 class matchResult(models.Model):
     # metadata
     match_number = models.IntegerField(default=0)
-    team = models.ForeignKey(team, on_delete=models.CASCADE)
-    event = models.ForeignKey(event, on_delete=models.CASCADE)
+    linked_team = models.ForeignKey(team, on_delete=models.CASCADE)
+    linked_event = models.ForeignKey(event, on_delete=models.CASCADE)
     recorded_time = models.DateTimeField(default=datetime.datetime.now)
 
     # auto

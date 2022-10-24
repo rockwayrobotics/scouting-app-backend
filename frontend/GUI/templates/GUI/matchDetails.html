@@ -6,7 +6,7 @@
 {% if latest_match_list %}
     <ul>
     {% for match in latest_match_list %}
-        <li><a href="team/{{ match.team_number }}/">Team {{ match.team_number }}</a></li>
+        <li><a href="team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

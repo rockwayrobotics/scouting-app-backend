@@ -32,20 +32,17 @@ def get(self, request, team=0):
 def index(request):
     return HttpResponse("Index")
 
-def match_details(request, event_id, match_number):
+def match_details(request, event_id, this_match_number):
     try:
         this_event = event.objects.get(id=event_id)
     except event.DoesNotExist:
         return HttpResponse("Event not found") # improve to return actual html
 
-    this_match = matchResult.objects.filter(event=this_event).filter(id=match_number).order_by('team_number') # List of all matches from event that match the number
+    this_match = matchResult.objects.filter(linked_event=this_event).filter(id=this_match_number).order_by('linked_team') # List of all matches from event that match the number
     
     context = {
         'latest_match_list': this_match, 'event_name': this_event.name, 'match_number': this_match[:1].get().match_number
     }
-
-    # response = "You're looking at the results of match %s at event %s"
-    # return HttpResponse(response % (match_number, event_id))
 
     return render(request, 'GUI/matchDetails.html', context)
 
@@ -58,33 +55,30 @@ def team_at_event(request, event_id, team_number):
     this_event = event.objects.get(id=event_id)
     this_team = team.objects.get(number=team_number)
 
-    latest_match_list = matchResult.objects.filter(event=this_event).filter(team=this_team).order_by('recorded_time')
-
-    # response = "You're looking at the event results for team %s at event %s"
-    # return HttpResponse(response % (team_number, event_id))
+    latest_match_list = matchResult.objects.filter(linked_event=this_event).filter(team=this_team).order_by('recorded_time')
 
     context = {'latest_match_list': latest_match_list, 'event_name': "at " + this_event.name, 'team_number': this_team.number, 'team_name': this_team.name}
     return render(request, 'GUI/teamDetails.html', context)
 
-def team_on_match(request, event_id, team_number, match_number):
+def team_on_match(request, event_id, team_number, this_match_number):
 
     this_event = event.objects.get(id=event_id)
     this_team = team.objects.get(number=team_number)
 
     response = "You're looking at the results for team %s for match %s at event %s"
-    return HttpResponse(response % (this_team.number, match_number, this_event.name))
+    return HttpResponse(response % (this_team.number, this_match_number, this_event.name))
 
 def event_details(request, event_id):
 
     this_event = event.objects.get(id=event_id)
 
-    latest_match_list = matchResult.objects.filter(event=this_event).order_by('recorded_time')
+    latest_match_list = matchResult.objects.filter(linked_event=this_event).order_by('recorded_time')
 
     context = {'latest_match_list': latest_match_list, 'event_name': this_event.name}
     return render(request, 'GUI/event.html', context)
 
 def event_list(request):
-    latest_event_list = event.order_by('start_date')
+    latest_event_list = event.objects.order_by('start_date')
 
     context = {'latest_event_list': latest_event_list}
-    return render(request,)
+    return render(request, 'GUI/event_list.html', context)
