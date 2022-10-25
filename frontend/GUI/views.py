@@ -68,6 +68,12 @@ def event_list(request):
     context = {'latest_event_list': latest_event_list}
     return render(request, 'GUI/event_list.html', context)
 
+def team_list(request):
+    teams_list = team.objects.order_by('number')
+
+    context = {'teams': teams_list}
+    return render(request, 'GUI/team_list.html', context)
+
 def test(request):
     getData()
     return HttpResponse("OH YEAH")
