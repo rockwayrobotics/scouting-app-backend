@@ -22,9 +22,13 @@ The backend app for FIRST Competition scouting.
 ## Steps
 ### Set Up
 `python3 -m venv .`
+
 `source bin/activate`
+
 `pip install -r requirements.txt`
+
 `cd frontend/`
+
 `python manage.py migrate`
 
 ### Run
