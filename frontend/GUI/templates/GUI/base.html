@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>{% block title %}{% endblock %} | 8089 Scouting App</title>
+</head>
+
+<body>
+	<h1>{% block header %}{% endblock %}</h1>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+	<footer>
+		<button>Scan QR</button>
+	</footer>
+</body>
+</html>

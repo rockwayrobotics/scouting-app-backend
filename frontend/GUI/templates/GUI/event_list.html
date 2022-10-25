@@ -1,9 +1,8 @@
-<title>8089 scouting app</title>
+{% extends "GUI/base.html" %}
+{% block title %}Events List{% endblock %}
+{% block header %}Events List{% endblock %}
 
-<h1>8089 scouting app</h1>
-
-<h2>Latest events:</h2>
-
+{% block content %}
 {% if latest_event_list %}
     <ul>
     {% for event in latest_event_list %}
@@ -13,3 +12,4 @@
 {% else %}
     <p>No events are available.</p>
 {% endif %}
+{% endblock %}

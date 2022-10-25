@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{% load static %}
-	<link rel="stylesheet" href="{% static 'style.css' %}">
+{% extends "GUI/base.html" %}
 
-	<title>Scouting App</title>
-</head>
-<body>
-	<h1>Scouting</h1>
-	{% if latest_data_list %}
-		<h2>Teams:</h2>
-		<ul>
-		{% for team in latest_data_list %}
-		<li><a href="/team/{{ team.id }}/">{{team.name}} ({{team.id}})</a></li>
-		{% endfor %}
-		</ul>
-	{% else %}
-		<p>No team data is available</p>
-	{% endif %}
-</body>
-</html>
+{% block title %}Index{% endblock %}
+{% block header %}Index{% endblock %}
+
+{% block content %}
+<button onclick="window.location.href='/event';">Events</button>
+<button onclick="window.location.href='/team';">Teams</button>
+{% endblock %}
