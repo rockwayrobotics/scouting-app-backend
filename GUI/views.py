@@ -3,7 +3,8 @@ from django.views import View
 from django.template import loader
 from django.shortcuts import render
 
-from .models import TeamData, matchResult, event, team, registration
+from .models import matchResult, event, team, registration
+from .opencv import test_function
 
 from .blueAllianceAPI import getData
 
@@ -37,7 +38,7 @@ def team_at_event(request, event_id, team_number):
 
     latest_match_list = matchResult.objects.filter(linked_event=this_event).filter(linked_team=this_team).order_by('recorded_time')
 
-    context = {'latest_match_list': latest_match_list, 'event_name': "at " + this_event.name, 'team_number': this_team.number, 'team_name': this_team.name}
+    context = {'latest_match_list': latest_match_list, 'event_name': "at " + this_event.name, 'team': this_team}
     return render(request, 'GUI/teamDetails.html', context)
 
 def team_on_match(request, event_id, team_number, this_match_number):
@@ -66,6 +67,12 @@ def event_list(request):
 
     context = {'latest_event_list': latest_event_list}
     return render(request, 'GUI/event_list.html', context)
+
+def team_list(request):
+    teams_list = team.objects.order_by('number')
+
+    context = {'teams': teams_list}
+    return render(request, 'GUI/team_list.html', context)
 
 def test(request):
     getData()

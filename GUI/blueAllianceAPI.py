@@ -5,7 +5,7 @@ import os
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import TeamData, matchResult, event, team, registration
+from .models import matchResult, event, team, registration
 
 my_headers={"X-TBA-Auth-Key":os.getenv('TBA_AUTH')}
 

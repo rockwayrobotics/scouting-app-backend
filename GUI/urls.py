@@ -11,6 +11,7 @@ urlpatterns = [
     path('event/<int:event_id>/match/<int:this_match_number>/team/<int:team_number>/', views.team_on_match, name="match results for specific team number"),
     path('event/<int:event_id>/', views.event_details),
     path('event/', views.event_list),
+    path('team/', views.team_list),
     path('test/', views.test)
 ]
 
