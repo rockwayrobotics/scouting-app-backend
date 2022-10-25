@@ -19,11 +19,6 @@ The backend app for FIRST Competition scouting.
 - QR code reading
 - Algorithms to rank teams
 
-## Roles
-Vanessa - DB
-Alyx - OpenCV, DB
-Erin - Django, Frontend
-
 ## Steps
 ### Set Up
 `python3 -m venv .`
