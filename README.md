@@ -44,4 +44,5 @@ pipenv run python manage.py migrate
 ```
 ### Running the server
 `pipenv run python manage.py runserver`
+
 Alternatively, you can use `pipenv shell` to active the venv and run commands from inside of it
