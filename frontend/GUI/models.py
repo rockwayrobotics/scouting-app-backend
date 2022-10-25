@@ -34,6 +34,7 @@ class event(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateField()
     end_date = models.DateField()
+    event_key = models.CharField(max_length=8)
 
     def __str__(self):
         return str(self.name)
@@ -77,7 +78,7 @@ class matchResult(models.Model):
     disabled = models.BooleanField(default=False)
 
     # comments
-    scouter_comments = models.CharField(max_length=500, default="")
+    scouter_comments = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return "Results - Match " + str(self.match_number) +  " Team " + str(self.linked_team.number)

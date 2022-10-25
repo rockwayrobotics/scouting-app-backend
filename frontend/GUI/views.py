@@ -6,6 +6,8 @@ from django.shortcuts import render
 from .models import TeamData, matchResult, event, team, registration
 from .opencv import test_function
 
+from .blueAllianceAPI import getData
+
 def get(self, request, team=0):
     if team:
         try:
@@ -86,3 +88,7 @@ def event_list(request):
 
     context = {'latest_event_list': latest_event_list}
     return render(request, 'GUI/event_list.html', context)
+
+def test(request):
+    getData()
+    return HttpResponse("OH YEAH")
