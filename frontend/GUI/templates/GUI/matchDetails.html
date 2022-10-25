@@ -1,6 +1,8 @@
-<title> {{ event_name }} </title>
+{% extends "GUI/base.html" %}
+{% block title %} Match {{ match.match_number }}{% endblock %}
+{% block header %}{{ event.name }}{% endblock %}
 
-<h1> {{ event_name }} </h1>
+{% block content %}
 <h2> Match {{ match_number }} </h2>
 
 {% if latest_match_list %}
@@ -12,3 +14,4 @@
 {% else %}
     <p>No team data is available for this match.</p>
 {% endif %}
+{% endblock %}

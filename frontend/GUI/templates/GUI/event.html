@@ -1,7 +1,8 @@
-<title> {{ event_name }} </title>
+{% extends "GUI/base.html" %}
+{% block title %}Event {{ event.name }} {% endblock %}
+{% block header %}{{ event.name }} {% endblock %}
 
-<h1> {{ event_name }} </h1>
-
+{% block content  %}
 {% if unique_match_list %}
     <ul>
     {% for match in unique_match_list %}
@@ -23,3 +24,4 @@
     <p>No matches are available.</p>
 {% endif %}
 </nbsp>
+{% endblock %}

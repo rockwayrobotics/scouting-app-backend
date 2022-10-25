@@ -8,31 +8,9 @@ from .opencv import test_function
 
 from .blueAllianceAPI import getData
 
-def get(self, request, team=0):
-    if team:
-        try:
-            team_data = TeamData.objects.get(id=team)
-        except TeamData.DoesNotExist:
-            raise Http404("Team does not exist")
-        template = loader.get_template('GUI/team.html')
-        context = {
-                'team': team_data,
-        }
-        return HttpResponse(template.render(context, request))
-
-    else:
-        # start OpenCV stuff here
-
-        test_function()
-        latest_data_list = TeamData.objects.order_by('-record_date')[:5]
-        template = loader.get_template('GUI/index.html')
-        context = {
-                'latest_data_list': latest_data_list,
-        }
-        return HttpResponse(template.render(context, request))
-
 def index(request):
-    return HttpResponse("Index")
+    template = loader.get_template('GUI/index.html')
+    return HttpResponse(template.render())
 
 def match_details(request, event_id, this_match_number):
     try:
@@ -43,14 +21,15 @@ def match_details(request, event_id, this_match_number):
     this_match = matchResult.objects.filter(linked_event=this_event).filter(match_number=this_match_number).order_by('linked_team__number') # List of all matches from event that match the number
     
     context = {
-        'latest_match_list': this_match, 'event_name': this_event.name, 'match_number': this_match[:1].get().match_number
+        'latest_match_list': this_match, 'event': this_event, 'match_number': this_match[:1].get().match_number
     }
 
     return render(request, 'GUI/matchDetails.html', context)
 
 def team_details(request, team_number):
-    response = "You're looking at the aggregated results for team %s"
-    return HttpResponse(response % team_number)
+    team_data = team.objects.get(number=team_number)
+    context = {'team': team_data}
+    return render(request, 'GUI/teamDetails.html', context)
 
 def team_at_event(request, event_id, team_number):
 
@@ -80,7 +59,7 @@ def event_details(request, event_id):
 
     attending_teams = registration.objects.filter(registered_event=this_event).order_by('registered_team__number')
 
-    context = {'latest_match_list': latest_match_list, 'event_name': this_event.name, 'attending_teams': attending_teams, 'unique_match_list': unique_match_list}
+    context = {'latest_match_list': latest_match_list, 'event': this_event, 'attending_teams': attending_teams, 'unique_match_list': unique_match_list}
     return render(request, 'GUI/event.html', context)
 
 def event_list(request):
