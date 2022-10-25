@@ -3,7 +3,7 @@ from django.views import View
 from django.template import loader
 from django.shortcuts import render
 
-from .models import TeamData, matchResult, event, team, registration
+from .models import matchResult, event, team, registration
 from .opencv import test_function
 
 from .blueAllianceAPI import getData
