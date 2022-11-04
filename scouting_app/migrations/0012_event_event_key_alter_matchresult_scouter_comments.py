@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('GUI', '0011_registration'),
+        ('scouting_app', '0011_registration'),
     ]
 
     operations = [

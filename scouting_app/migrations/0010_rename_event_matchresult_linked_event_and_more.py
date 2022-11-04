@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('GUI', '0009_alter_matchresult_recorded_time'),
+        ('scouting_app', '0009_alter_matchresult_recorded_time'),
     ]
 
     operations = [

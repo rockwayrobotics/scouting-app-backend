@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('GUI', '0007_remove_matchresult_team_number_and_more'),
+        ('scouting_app', '0007_remove_matchresult_team_number_and_more'),
     ]
 
     operations = [
