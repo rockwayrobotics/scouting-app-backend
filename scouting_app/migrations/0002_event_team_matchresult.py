@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('GUI', '0001_initial'),
+        ('scouting_app', '0001_initial'),
     ]
 
     operations = [
@@ -42,8 +42,8 @@ class Migration(migrations.Migration):
                 ('climb_level', models.IntegerField(default=0)),
                 ('climb_time', models.IntegerField(default=0)),
                 ('penalty', models.IntegerField(default=0)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='GUI.event')),
-                ('team_reference', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='GUI.team')),
+                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scouting_app.event')),
+                ('team_reference', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scouting_app.team')),
             ],
         ),
     ]

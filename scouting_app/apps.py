@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GuiConfig(AppConfig):
+class scouting_appConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'GUI'
+    name = 'scouting_app'
