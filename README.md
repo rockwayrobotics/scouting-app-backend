@@ -27,8 +27,6 @@ The backend app for FIRST Competition scouting.
 
 `pip install -r requirements.txt`
 
-`cd frontend/`
-
 `python manage.py migrate`
 
 ### Run

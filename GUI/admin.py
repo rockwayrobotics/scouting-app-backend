@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import matchResult, event, registration, team
+from .models import MatchResult, Event, Registration, Team
 
-admin.site.register(matchResult)
-admin.site.register(event)
-admin.site.register(team)
-admin.site.register(registration)
+admin.site.register(MatchResult)
+admin.site.register(Event)
+admin.site.register(Team)
+admin.site.register(Registration)
