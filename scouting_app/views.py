@@ -51,8 +51,8 @@ def team_on_match(request, event_id, team_number, this_match_number):
     this_event = Event.objects.get(id=event_id)
     this_team = Team.objects.get(number=team_number)
 
-    response = "You're looking at the results for team %s for match %s at event %s"
-    return HttpResponse(response % (this_team.number, this_match_number, this_event.name))
+    context = {'team': this_team, 'event': this_event, 'match_number': this_match_number}
+    return render(request, 'scouting_app/teamMatchDetails.html', context)
 
 
 def event_details(request, event_id):
