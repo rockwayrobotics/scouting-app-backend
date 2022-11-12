@@ -1,6 +1,5 @@
 import datetime
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Event(models.Model):
@@ -34,6 +33,7 @@ class MatchResult(models.Model):
     match_number = models.IntegerField(default=0)
     linked_team = models.ForeignKey(Team, on_delete=models.CASCADE)
     linked_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    alliance = models.CharField(max_length=1)
     recorded_time = models.DateTimeField(default=datetime.datetime.now)
 
     # auto
@@ -51,6 +51,8 @@ class MatchResult(models.Model):
     penalty = models.IntegerField(default=0)
     tippy = models.BooleanField(default=False)
     disabled = models.BooleanField(default=False)
+
+    alliance_final_score = models.IntegerField(default=0)
 
     # comments
     scouter_comments = models.CharField(max_length=500, blank=True)
