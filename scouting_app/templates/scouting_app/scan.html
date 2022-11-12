@@ -1,5 +1,42 @@
 <!DOCTYPE html>
-<div style="width: 500px" id="reader"></div>
+
+<style>
+    #reader { 
+        max-width: 500px;
+        display: inline;
+        float: left;
+        width: 40%;
+    }
+    .myForm {
+        float: right;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+    }
+    .dataBlock {
+        width: 100%;
+        display: table-row;
+    }
+    .dataBlock label {
+        margin: 5px 10px;
+        display: table-cell
+    }
+    .dataBlock input {
+        margin: 5px 10px;
+        display: table-cell
+    }
+    .shade {
+        background-color:lightgrey;
+    }
+
+    input[type=checkbox]{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+</style>
+<div id="reader"></div>
 
 {% load static %}
 
@@ -8,25 +45,61 @@
         {% csrf_token %}
 
         {#Field names must match keys in QR code dictionary#}
-        <input type="text" value="" id="match_no", name="match_no">
-        <input type="text" value="" id="team", name="team">
-        <input type="text" value="" id="event", name="event">
-        <input type="text" value="" id="time", name="time">
-        <input type="text" value="" id="auto", name="auto">
-        <input type="text" value="" id="a_move", name="a_move">
-        <input type="text" value="" id="tele", name="tele">
-        <input type="text" value="" id="end", name="end">
-        <input type="text" value="" id="e_time", name="e_time">
-        <input type="text" value="" id="penal", name="penal">
-        <input type="text" value="" id="tip", name="tip">
-        <input type="text" value="" id="disab", name="disab">
+        <div class="dataBlock">
+            <label for="match_no">Match Number</label>
+            <input type="text" value="" id="match_no" name="match_no">
+        </div>
+        <div class="dataBlock shade">
+            <label for="team">Team Name</label>
+            <input type="text" value="" id="team" name="team">
+        </div>
+        <div class="dataBlock">
+            <label for="event">Team Name</label>
+            <input type="text" value="" id="event" name="event">
+        </div>
+        <div class="dataBlock shade">
+            <label for="time">Entry Time</label>
+            <input type="text" value="" id="time" name="time">
+        </div>
+        <div class="dataBlock">
+            <label for="auto">Score in Auto</label>
+            <input type="text" value="" id="auto" name="auto">
+        </div>
+        <div class="dataBlock shade">
+            <label for="a_move">Movement in Auto</label>
+            <input type="text" value="" id="a_move" name="a_move">
+        </div>
+        <div class="dataBlock">
+            <label for="tele">Score in Teleop</label>
+            <input type="text" value="" id="tele" name="tele">
+        </div>
+        <div class="dataBlock shade">
+            <label for="a_move">Movement in Auto</label>
+            <input type="text" value="" id="end" name="end">
+        </div>
+        <div class="dataBlock">
+            <label for="e_time">Endgame Time</label>
+            <input type="text" value="" id="e_time" name="e_time">
+        </div>
+        <div class="dataBlock shade">
+            <label for="penal">Penalties assigned</label>
+            <input type="text" value="" id="penal" name="penal">
+        </div>
+        <div class="dataBlock">
+            <label for="tip">Did the robot tip</label>
+            <input type="text" value="" id="tip" name="tip">
+        </div>
+        <div class="dataBlock shade">
+            <label for="disab">Did the robot become disabled</label>
+            <input type="text" value="" id="disab" name="disab">
+        </div>
 
         <input type="submit" value="Submit">
     </form>
 </div>
 
 <script>
-    {#Refill form with data from django context#}
+    //{#Refill form with data from django context#}
     let my_dict = JSON.parse('{{ form_dict }}'.replaceAll("&quot;", "\""));
 
     for(const key in my_dict) {
