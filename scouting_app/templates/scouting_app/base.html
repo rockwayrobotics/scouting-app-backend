@@ -10,12 +10,19 @@
 </head>
 
 <body>
-	<h1>{% block header %}{% endblock %}</h1>
+	<header>
+		<div class="navigation">
+			<a href="/">Home</a> |
+			<a href="/event">Events</a> |
+			<a href="/team">Teams</a>
+		</div>
+		<h1>{% block header %}{% endblock %}</h1>
+	</header>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
 	<footer>
-		<button>Scan QR</button>
+		<!--<button>Scan QR</button>-->
 	</footer>
 </body>
 </html>

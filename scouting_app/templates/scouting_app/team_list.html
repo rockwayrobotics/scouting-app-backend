@@ -4,11 +4,9 @@
 
 {% block content %}
 {% if teams %}
-    <ul>
     {% for team in teams %}
-	<li><a href="{{ team.number }}/">{{ team.number }} ({{ team.name }})</a></li>
+	<div><a href="{{ team.number }}/">{{ team.number }} ({{ team.name }})</a></div>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No teams are available.</p>
 {% endif %}

@@ -1,16 +1,22 @@
-<!DOCTYPE html>
+{% extends "scouting_app/base.html" %}
+{% block title %}Match Data Input{% endblock %}
+{% block header %}Match Data Input{% endblock %}
 
+{% block content %}
 <style>
     #reader { 
         max-width: 500px;
-        display: inline;
+        width: 100%;
+    }
+    .myQrCode {
+        width: 48%;
         float: left;
-        width: 40%;
+        text-align: center;
     }
     .myForm {
         float: right;
         font-family: Arial, Helvetica, sans-serif;
-        width: 55%;
+        width: 50%;
         display: flex;
         flex-direction: column;
     }
@@ -99,92 +105,98 @@
         background-color:red;
         margin-left: 10px;
       }
+
+      
 </style>
-<div id="reader"></div>
 
-{% load static %}
+    <div class="myQrCode">
+        <h2>Scan QR Code</h2>
+        <div id="reader"></div>
+    </div>
+    
+    <div class="myForm">
+        <h2>Data Preview</h2>
+        <form action="/scan/" method="post", id="myForm">
+            {% csrf_token %}
 
-<div class="myForm">
-    <form action="/scan/" method="post", id="myForm">
-        {% csrf_token %}
+            {#Field names must match keys in QR code dictionary#}
+            <div class="formBlock">
+            <div class="dataBlock">
+                <label for="match_no">Match Number</label>
+                <input type="text" value="" id="match_no" name="match_no">
+            </div>
+            <div class="dataBlock shade">
+                <label for="team">Team Name</label>
+                <input type="text" value="" id="team" name="team">
+            </div>
+            <div class="dataBlock">
+                <label for="event">Team Name</label>
+                <input type="text" value="" id="event" name="event">
+            </div>
+            <div class="dataBlock shade">
+                <label for="time">Entry Time</label>
+                <input type="text" value="" id="time" name="time">
+            </div>
+            <div class="dataBlock">
+                <label for="auto">Score in Auto</label>
+                <input type="text" value="" id="auto" name="auto">
+            </div>
+            <div class="dataBlock shade">
+                <label for="a_move">Movement in Auto</label>
+                <input type="text" value="" id="a_move" name="a_move">
+            </div>
+            <div class="dataBlock">
+                <label for="tele">Score in Teleop</label>
+                <input type="text" value="" id="tele" name="tele">
+            </div>
+            <div class="dataBlock shade">
+                <label for="a_move">Movement in Auto</label>
+                <input type="text" value="" id="end" name="end">
+            </div>
+            <div class="dataBlock">
+                <label for="e_time">Endgame Time</label>
+                <input type="text" value="" id="e_time" name="e_time">
+            </div>
+            <div class="dataBlock shade">
+                <label for="penal">Penalties assigned</label>
+                <input type="text" value="" id="penal" name="penal">
+            </div>
+            <div class="dataBlock">
+                <label for="tip">Did the robot tip</label>
+                <input type="text" value="" id="tip" name="tip">
+            </div>
+            <div class="dataBlock shade">
+                <label for="disab">Did the robot become disabled</label>
+                <input type="text" value="" id="disab" name="disab">
+            </div>
+            
+            <div class="dataBlock">
+                <table>
+                    <tr>
+                        <td style="vertical-align: bottom;">
+                            <div class="toggle">
+                                <input type="checkbox" id="auto_submit" name="auto_submit" checked>
+                                <label for="auto_submit"> Auto submit? </label>
+                            </div>
+                        </td>
+                        <td style="vertical-align: bottom; padding-bottom:10px;">
+                            Auto Submit
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
 
-        {#Field names must match keys in QR code dictionary#}
-        <div class="formBlock">
-        <div class="dataBlock">
-            <label for="match_no">Match Number</label>
-            <input type="text" value="" id="match_no" name="match_no">
-        </div>
-        <div class="dataBlock shade">
-            <label for="team">Team Name</label>
-            <input type="text" value="" id="team" name="team">
-        </div>
-        <div class="dataBlock">
-            <label for="event">Team Name</label>
-            <input type="text" value="" id="event" name="event">
-        </div>
-        <div class="dataBlock shade">
-            <label for="time">Entry Time</label>
-            <input type="text" value="" id="time" name="time">
-        </div>
-        <div class="dataBlock">
-            <label for="auto">Score in Auto</label>
-            <input type="text" value="" id="auto" name="auto">
-        </div>
-        <div class="dataBlock shade">
-            <label for="a_move">Movement in Auto</label>
-            <input type="text" value="" id="a_move" name="a_move">
-        </div>
-        <div class="dataBlock">
-            <label for="tele">Score in Teleop</label>
-            <input type="text" value="" id="tele" name="tele">
-        </div>
-        <div class="dataBlock shade">
-            <label for="a_move">Movement in Auto</label>
-            <input type="text" value="" id="end" name="end">
-        </div>
-        <div class="dataBlock">
-            <label for="e_time">Endgame Time</label>
-            <input type="text" value="" id="e_time" name="e_time">
-        </div>
-        <div class="dataBlock shade">
-            <label for="penal">Penalties assigned</label>
-            <input type="text" value="" id="penal" name="penal">
-        </div>
-        <div class="dataBlock">
-            <label for="tip">Did the robot tip</label>
-            <input type="text" value="" id="tip" name="tip">
-        </div>
-        <div class="dataBlock shade">
-            <label for="disab">Did the robot become disabled</label>
-            <input type="text" value="" id="disab" name="disab">
-        </div>
-        
-        <div class="dataBlock">
-            <table>
-                <tr>
-                    <td style="vertical-align: bottom;">
-                        <div class="toggle">
-                            <input type="checkbox" id="auto_submit" name="auto_submit" checked>
-                            <label for="auto_submit"> Auto submit? </label>
-                        </div>
-                    </td>
-                    <td style="vertical-align: bottom; padding-bottom:10px;">
-                        Auto Submit
-                    </td>
-                </tr>
-            </table>
-        </div>
-        </div>
-
-        <div class="button clear">
-            <input type="button" value="Clear" onclick="clearForm()">
-        </div>
-        <div class="button">
-            <input type="submit" value="Submit Data">
-        </div>
-        
-    </form>
+            <div class="button clear">
+                <input type="button" value="Clear" onclick="clearForm()">
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit Data">
+            </div>
+        </form>
+    </div>
 </div>
+
 <script>
     // Refill form with data from django context
     let my_dict = JSON.parse("{{ form_dict }}".replaceAll("&quot;", "\""));
@@ -197,5 +209,7 @@
         document.getElementById(key).value = my_dict[key];
     }
 </script>
-<script src="{% static 'html5-qrcode.min.js' %}"></script>
-<script src="{% static 'scanner.js' %}"></script>
+<script src="/static/html5-qrcode.min.js"></script>
+<script src="/static/scanner.js"></script>
+
+{% endblock %}

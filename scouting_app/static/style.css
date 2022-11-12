@@ -1,6 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
 :root {
 	--foreground-color: #36454F;
 	--background-color: #F9F6EE;
+}
+
+*, h1, h2, span, div, li {
+	font-family: "Roboto", Arial, sans-serif !important;
 }
 
 body {
@@ -9,6 +15,26 @@ body {
 	background: var(--background-color);
 	color: var(--foreground-color);
 	margin: 0 auto;
-	max-width: 15cm;
 	text-align: center;
+	margin: 25px;
 }
+
+header h1 {
+	font-size: 60px;
+	font-weight: 600;
+	background-image: linear-gradient(to left, #000, #ccc);
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	margin: 0px;
+	padding: 0px;
+  }
+  header {
+	  border-bottom: 1px solid #ccc;
+	  margin: 10px;
+	  padding: 10px;
+  }
+
+  .navigation {
+	  float:right
+  }
