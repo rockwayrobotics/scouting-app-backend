@@ -21,13 +21,20 @@
         <input type="text" value="" id="tip", name="tip">
         <input type="text" value="" id="disab", name="disab">
 
+        <input type="checkbox" id="auto_submit" name="auto_submit" checked>
+        <label for="auto_submit"> Auto submit? </label>
+
         <input type="submit" value="Submit">
     </form>
 </div>
 
 <script>
-    {#Refill form with data from django context#}
+    // Refill form with data from django context
     let my_dict = JSON.parse('{{ form_dict }}'.replaceAll("&quot;", "\""));
+
+    if(my_dict["auto_submit"]) {
+        document.getElementById("auto_submit").checked = true;
+    }
 
     for(const key in my_dict) {
         document.getElementById(key).value = my_dict[key];
