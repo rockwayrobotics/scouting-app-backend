@@ -13,7 +13,6 @@
         width: 55%;
         display: flex;
         flex-direction: column;
-       
     }
     .formBlock {
         border: 1px solid #ccc;
@@ -39,19 +38,16 @@
     .shade {
         background-color:lightgrey;
     }
-
     input[type=checkbox]{
         height: 0;
         width: 0;
         visibility: hidden;
     }
-
     input[type=checkbox]{
         height: 0;
         width: 0;
         visibility: hidden;
     }
-    
     .toggle label {
         cursor: pointer;
         text-indent: -9999px;
@@ -62,7 +58,6 @@
         border-radius: 100px;
         position: relative;
     }
-    
     .toggle label:after {
         content: '';
         position: absolute;
@@ -74,23 +69,19 @@
         border-radius: 90px;
         transition: 0.5s;
     }
-    
     input:checked + label {
         background: #bada55;
     }
-    
     input:checked + label:after {
         left: calc(100% - 5px);
         transform: translateX(-100%);
     }
-    
     label:active:after {
         width: 10px;
     }
     .toggle {
         margin:0 10px;
     }
-
     .button input{
         background-color: #bada55;
         border: none;
@@ -102,6 +93,11 @@
         border-radius: 5px;
         float: right;
         margin: 5px 0;
+      }
+
+      .clear input {
+        background-color:red;
+        margin-left: 10px;
       }
 </style>
 <div id="reader"></div>
@@ -180,15 +176,18 @@
         </div>
         </div>
 
+        <div class="button clear">
+            <input type="button" value="Clear" onclick="clearForm()">
+        </div>
         <div class="button">
             <input type="submit" value="Submit Data">
         </div>
+        
     </form>
 </div>
-
 <script>
     // Refill form with data from django context
-    let my_dict = JSON.parse('{{ form_dict }}'.replaceAll("&quot;", "\""));
+    let my_dict = JSON.parse("{{ form_dict }}".replaceAll("&quot;", "\""));
 
     if(my_dict["auto_submit"]) {
         document.getElementById("auto_submit").checked = true;
@@ -198,6 +197,5 @@
         document.getElementById(key).value = my_dict[key];
     }
 </script>
-
 <script src="{% static 'html5-qrcode.min.js' %}"></script>
 <script src="{% static 'scanner.js' %}"></script>
