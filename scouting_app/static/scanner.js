@@ -7,7 +7,11 @@ function onScanSuccess(decodedText, decodedResult) {
         document.getElementById(key).value = my_dict2[key];
     }
 
-    document.getElementById('myForm').submit();
+    const auto_submit_box = document.getElementById('auto_submit')
+
+    if(auto_submit_box.checked) {
+        document.getElementById('myForm').submit();
+    }
 }
 
 let html5QrcodeScanner = new Html5QrcodeScanner(
