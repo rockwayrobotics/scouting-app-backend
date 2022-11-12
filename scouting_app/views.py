@@ -1,3 +1,5 @@
+import json
+from datetime import datetime
 from django.http import HttpResponse
 from django.views import View
 from django.template import loader
@@ -86,3 +88,42 @@ def team_list(request):
 def test(request):
     get_data()
     return HttpResponse("OH YEAH")
+
+
+def scan(request):
+    if request.method == 'POST':
+        form_data = dict(request.POST)
+        del form_data['csrfmiddlewaretoken']
+
+        # Dump data from form to JSON to send back to JS for field population
+        context = {'form_dict': json.dumps(form_data)}
+
+        # If entry doesn't exist, read data from form and save to DB
+        if not MatchResult.objects.filter(match_number=int(form_data['match_no'][0])).filter(
+                linked_team=Team.objects.get(number=int(form_data['team'][0]))).exists():
+
+            MatchResult(
+                match_number=int(form_data['match_no'][0]),
+                linked_team=Team.objects.get(number=int(form_data['team'][0])),
+                linked_event=Event.objects.get(event_key=form_data['event'][0]),
+                recorded_time=datetime.strptime(form_data['time'][0], '%Y-%m-%dT%H:%M:%S.%f%z'),
+                auto_score=int(form_data['auto'][0]),
+                auto_move=bool(int(form_data['a_move'][0])),
+                teleop_score=int(form_data['tele'][0]),
+                endgame_score=int(form_data['end'][0]),
+                endgame_time=int(form_data['e_time'][0]),
+                penalty=int(form_data['penal'][0]),
+                tippy=bool(int(form_data['tip'][0])),
+                disabled=bool(int(form_data['disab'][0])),
+                scouter_comments="test"
+            ).save()
+        else:
+            print("match result already exists")
+
+        return render(request, 'scouting_app/scan.html', context)
+
+    else:
+        # Provide an empty form_dict to prevent JS errors on page load
+        context = {'form_dict': {}}
+
+        return render(request, 'scouting_app/scan.html', context)

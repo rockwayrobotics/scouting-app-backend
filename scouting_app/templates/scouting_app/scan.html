@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<div style="width: 500px" id="reader"></div>
+
+{% load static %}
+
+<div class="myForm">
+    <form action="/scan/" method="post", id="myForm">
+        {% csrf_token %}
+
+        {#Field names must match keys in QR code dictionary#}
+        <input type="text" value="" id="match_no", name="match_no">
+        <input type="text" value="" id="team", name="team">
+        <input type="text" value="" id="event", name="event">
+        <input type="text" value="" id="time", name="time">
+        <input type="text" value="" id="auto", name="auto">
+        <input type="text" value="" id="a_move", name="a_move">
+        <input type="text" value="" id="tele", name="tele">
+        <input type="text" value="" id="end", name="end">
+        <input type="text" value="" id="e_time", name="e_time">
+        <input type="text" value="" id="penal", name="penal">
+        <input type="text" value="" id="tip", name="tip">
+        <input type="text" value="" id="disab", name="disab">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    {#Refill form with data from django context#}
+    let my_dict = JSON.parse('{{ form_dict }}'.replaceAll("&quot;", "\""));
+
+    for(const key in my_dict) {
+        document.getElementById(key).value = my_dict[key];
+    }
+</script>
+
+<script src="{% static 'html5-qrcode.min.js' %}"></script>
+<script src="{% static 'scanner.js' %}"></script>
