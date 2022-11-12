@@ -38,3 +38,11 @@ header h1 {
   .navigation {
 	  float:right
   }
+
+  .blueAlliance, .blueAlliance a {
+	color: #0F4BCB;
+  }
+
+  .redAlliance, .redAlliance a {
+	  color: #ED1C24;
+  }

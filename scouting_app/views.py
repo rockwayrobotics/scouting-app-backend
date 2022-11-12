@@ -25,8 +25,26 @@ def match_details(request, event_id, this_match_number):
     this_match = MatchResult.objects.filter(linked_event=this_event).filter(match_number=this_match_number).order_by(
         'linked_team__number')  # List of all matches from event that match the number
 
+    blueAllianceScore = 0
+    redAllianceScore = 0
+    
+    for teamResult in this_match:
+        if teamResult.alliance == 'r' and redAllianceScore == 0:
+            redAllianceScore = teamResult.alliance_final_score
+        if teamResult.alliance == 'b' and blueAllianceScore == 0:
+            blueAllianceScore = teamResult.alliance_final_score
+
+    if redAllianceScore > blueAllianceScore:
+        winningTeam = 'Red'
+    else:
+        winningTeam = 'Blue'
+
+    nextMatchNumber = this_match_number + 1
+    prevMatchNumber = this_match_number - 1
+    eventNumber = this_event.id
+
     context = {
-        'latest_match_list': this_match, 'event': this_event, 'match_number': this_match[:1].get().match_number
+        'latest_match_list': this_match, 'event': this_event, 'event_number': eventNumber, 'match_number': this_match_number, 'b_score': blueAllianceScore, 'r_score': redAllianceScore, 'winner': winningTeam, 'nextMatch': nextMatchNumber, 'prevMatch': prevMatchNumber
     }
 
     return render(request, 'scouting_app/matchDetails.html', context)
