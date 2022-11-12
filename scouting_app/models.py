@@ -45,7 +45,7 @@ class MatchResult(models.Model):
 
     # endgame
     endgame_score = models.IntegerField(default=0)
-    endgame_time = models.IntegerField(default=0)
+    endgame_time = models.FloatField(default=0)
 
     # penalty
     penalty = models.IntegerField(default=0)

@@ -111,7 +111,7 @@ def scan(request):
                 auto_move=bool(int(form_data['a_move'][0])),
                 teleop_score=int(form_data['tele'][0]),
                 endgame_score=int(form_data['end'][0]),
-                endgame_time=int(form_data['e_time'][0]),
+                endgame_time=float(form_data['e_time'][0]),
                 penalty=int(form_data['penal'][0]),
                 tippy=bool(int(form_data['tip'][0])),
                 disabled=bool(int(form_data['disab'][0])),
