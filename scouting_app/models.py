@@ -33,7 +33,7 @@ class MatchResult(models.Model):
     match_number = models.IntegerField(default=0)
     linked_team = models.ForeignKey(Team, on_delete=models.CASCADE)
     linked_event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    alliance = models.CharField(max_length=1)
+    alliance = models.CharField(max_length=4)
     recorded_time = models.DateTimeField(default=datetime.datetime.now)
 
     # auto

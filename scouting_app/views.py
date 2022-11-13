@@ -29,9 +29,9 @@ def match_details(request, event_id, this_match_number):
     redAllianceScore = 0
     
     for teamResult in this_match:
-        if teamResult.alliance == 'r' and redAllianceScore == 0:
+        if teamResult.alliance == 'red' and redAllianceScore == 0:
             redAllianceScore = teamResult.alliance_final_score
-        if teamResult.alliance == 'b' and blueAllianceScore == 0:
+        if teamResult.alliance == 'blue' and blueAllianceScore == 0:
             blueAllianceScore = teamResult.alliance_final_score
 
     if redAllianceScore > blueAllianceScore:

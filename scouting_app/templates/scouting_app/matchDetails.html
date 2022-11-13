@@ -20,7 +20,7 @@
 <div style="float: left; width:45%;" class="redAlliance">
     <h3>Red Alliance - {{ r_score }}  {% if winner == 'Red' %}****{% endif %}</h3>
     {% for match in latest_match_list %}
-        {% if match.alliance == 'r' %}
+        {% if match.alliance == 'red' %}
             <div style="border: solid 1px #ccc">
                 <a href="team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
@@ -60,7 +60,7 @@
 <div style="float: left; width:45%" class="blueAlliance">
     <h3>Blue Alliance - {{ b_score }} {% if winner == 'Blue' %}****{% endif %}</h3>
         {% for match in latest_match_list %}
-        {% if match.alliance == 'b' %}
+        {% if match.alliance == 'blue' %}
             <div style="border: solid 1px #ccc">
                 <a href="team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
