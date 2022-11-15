@@ -21,10 +21,13 @@ def draw_checkmark(bottom, width, pos):
     mid = (x + bottom, y + bottom - width)
     mid_gen = (x + bottom + width, y + bottom - width)
     # return [start, start_gen, bot, bot_gen, top, top_gen, mid, mid_gen]
-    arr = np.array([start, start_gen, bot, bot_gen, top, top_gen, mid, mid_gen], np.int32)
+    # arr = np.array([start, start_gen, bot, bot_gen, top, top_gen, mid, mid_gen], np.int32)
+    arr = np.array([start, bot, bot_gen, top_gen, top, mid_gen, mid, start_gen], np.int32)
     print(arr)
     return [arr.reshape(-1, 1, 2)]
 
+def checkmark(frame):
+    cv2.fillPoly(frame, draw_checkmark(30,6,(5,50)), (0,255,0))
 
 def process_data():
     this_event = Event.objects.get(id=event_id)
@@ -55,7 +58,7 @@ def run_video():
         ret, frame = vid.read()
         if feedback_counter > 0:
             feedback_counter -= 1
-            cv2.rectangle(frame, (0,0), (50,50), (0,255,0), -1)
+            checkmark(frame)
             cv2.imshow('frame', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -70,12 +73,6 @@ def run_video():
                 feedback_counter = 30
         except:
             pass
-        # print(draw_checkmark(10,4,(100,100)))
-        cv2.polylines(frame, draw_checkmark(10,4,(100,100)), True, (0,255,0), -1)
-        # for i in draw_checkmark(10,4,(100,100)):
-        #     # print(i)
-        #     # print(i)
-        #     cv2.rectangle(frame, i, (i[0] + 1, i[1] + 1), (0,255,0), -1)
         cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
