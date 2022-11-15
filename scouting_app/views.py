@@ -4,9 +4,10 @@ from django.template import loader
 from django.shortcuts import render
 
 from .models import MatchResult, Event, Team, Registration
-from .opencv import test_function
 
 from .blueAllianceAPI import get_data
+
+from .opencv import exe
 
 
 def index(request):
@@ -86,3 +87,7 @@ def team_list(request):
 def test(request):
     get_data()
     return HttpResponse("OH YEAH")
+
+def vis_test(request):
+    exe()
+    return HttpResponse("Beans")
