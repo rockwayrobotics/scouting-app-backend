@@ -8,8 +8,6 @@ from django.shortcuts import render
 from .models import MatchResult, Event, Team, Registration
 from .opencv import test_function
 
-from .blueAllianceAPI import get_data
-
 
 def index(request):
     template = loader.get_template('scouting_app/index.html')
@@ -101,11 +99,6 @@ def team_list(request):
 
     context = {'teams': teams_list}
     return render(request, 'scouting_app/team_list.html', context)
-
-
-def test(request):
-    get_data()
-    return HttpResponse("OH YEAH")
 
 
 def scan(request):
