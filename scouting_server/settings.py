@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from configparser import ConfigParser
 from pathlib import Path
 import os
+from sys import exit
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SETTINGS_KEY')
+
+if os.getenv('DJANGO_SETTINGS_KEY') is not None:
+    SECRET_KEY = os.getenv('DJANGO_SETTINGS_KEY')
+
+elif os.path.exists('settings.ini'):
+    config = ConfigParser()
+    config.read('settings.ini')
+
+    try:
+        SECRET_KEY = config['settings']['django_settings_key']
+    except KeyError:
+        print("ERROR: Django secret key could not be loaded from settings.ini, is the file formatted correctly? Aborting.")
+        exit()
+
+else:
+    print("ERROR: Django secret key could not be located in environment variables or settings.ini. Aborting.")
+    exit()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

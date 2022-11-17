@@ -1,18 +1,29 @@
-from django.core.management.base import BaseCommand, CommandError
-
-from django.utils import timezone
-
 import requests
 import json
 import os
-
-from django.core.exceptions import ObjectDoesNotExist
-
 from datetime import datetime
+from configparser import ConfigParser
+
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 from scouting_app.models import MatchResult, Event, Team, Registration
 
-my_headers = {"X-TBA-Auth-Key": os.getenv('TBA_AUTH')}
+if os.getenv('TBA_AUTH') is not None:
+    my_headers = {"X-TBA-Auth-Key":os.getenv('TBA_AUTH')}
+
+elif os.path.exists('settings.ini'):
+    config = ConfigParser()
+    config.read('settings.ini')
+    try:
+        my_headers = {"X-TBA-Auth-Key":config['settings']['tba_auth']}
+        
+    except KeyError:
+        print("ERROR: TBA API key could not be loaded from settings.ini, is the file formatted correctly? Aborting.")
+        exit()
+else:
+    print("ERROR: TBA API key could not be located in environment variables or settings.ini. Aborting.")
 
 
 class Command(BaseCommand):

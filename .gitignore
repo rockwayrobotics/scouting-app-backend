@@ -135,4 +135,8 @@ dmypy.json
 .vscode/
 .idea/
 
+# MacOS filesystem files
 *.DS_Store
+
+# Configuration files
+settings.ini
