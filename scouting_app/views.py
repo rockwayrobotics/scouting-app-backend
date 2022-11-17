@@ -6,7 +6,8 @@ from django.template import loader
 from django.shortcuts import render
 
 from .models import MatchResult, Event, Team, Registration
-from .opencv import test_function
+
+from .opencv import exe
 
 
 def index(request):
@@ -143,3 +144,8 @@ def scan(request):
         context = {'form_dict': {}}
 
         return render(request, 'scouting_app/scan.html', context)
+
+def vis_test(request):
+    exe()
+    return HttpResponse("Beans")
+
