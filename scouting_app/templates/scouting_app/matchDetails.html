@@ -22,7 +22,7 @@
     {% for match in latest_match_list %}
         {% if match.alliance == 'red' %}
             <div style="border: solid 1px #ccc">
-                <a href="team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
+                <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
                     <tr>
                         <td>Auto score</td>
@@ -62,7 +62,7 @@
         {% for match in latest_match_list %}
         {% if match.alliance == 'blue' %}
             <div style="border: solid 1px #ccc">
-                <a href="team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
+                <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
                     <tr>
                         <td>Auto score</td>

@@ -49,8 +49,13 @@ def match_details(request, event_id, this_match_number):
 
 
 def team_details(request, team_number):
-    team_data = Team.objects.get(number=team_number)
-    context = {'team': team_data}
+    this_team = Team.objects.get(number=team_number)
+
+    event_list = Registration.objects.filter(registered_team__number=team_number).order_by('registered_event__start_date')
+
+    match_list = MatchResult.objects.filter(linked_team=this_team).order_by('recorded_time')
+
+    context = {'team': this_team, 'events': event_list, 'matches': match_list}
     return render(request, 'scouting_app/teamDetails.html', context)
 
 
