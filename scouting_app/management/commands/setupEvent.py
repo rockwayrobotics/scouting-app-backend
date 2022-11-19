@@ -1,12 +1,10 @@
 import requests
 import json
 import os
-from datetime import datetime
 from configparser import ConfigParser
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist
 
 from scouting_app.models import MatchResult, Event, Team, Registration
 
@@ -25,80 +23,108 @@ elif os.path.exists('settings.ini'):
 else:
     print("ERROR: TBA API key could not be located in environment variables or settings.ini. Aborting.")
 
+def registerTeam(team_number, event_item, team_list):
+    # print(f"Team {team_number} registered")
+    if not Team.objects.filter(number=team_number).exists():
+            for team_item in team_list:
+                if team_item['team_number'] == int(team_number):
+                    Team(
+                        number = team_number,
+                        name = team_item['nickname']
+                    ).save()
+
+    if not Registration.objects.filter(registered_team = Team.objects.get(number=team_number), registered_event = Event.objects.get(event_key=event_item['key'])).exists():
+        Registration(
+            registered_team = Team.objects.get(number=team_number),
+            registered_event = Event.objects.get(event_key=event_item['key'])
+        ).save()
+
+
+def registerMatch(event_item, team_number, match_item, alliance_colour):
+    if not MatchResult.objects.filter(linked_event = Event.objects.get(event_key=event_item['key']), linked_team = Team.objects.get(number=team_number), match_number = match_item['match_number']).exists():
+        # print(f"Match {match_item['match_number']} - Team {team_number} - {alliance_colour} alliance")
+
+        MatchResult(
+            match_number = match_item['match_number'],
+            linked_team = Team.objects.get(number=team_number),
+            linked_event = Event.objects.get(event_key=event_item['key']),
+            alliance = alliance_colour,
+            recorded_time = timezone.now(),
+            auto_score = 0,
+            auto_move = False,
+            teleop_score = 0,
+            endgame_score = 0,
+            endgame_time = 0,
+            penalty = 0,
+            tippy = False,
+            disabled = False,
+            alliance_final_score = match_item['alliances'][alliance_colour]['score']
+        ).save()
+
+
+def process_event(event_item):
+    print(f"Processing {event_item['key']} - {event_item['name']}")
+    if not Event.objects.filter(event_key=event_item['key']).exists():
+        Event(
+            name = event_item['name'],
+            start_date = event_item['start_date'],
+            end_date = event_item['end_date'],
+            event_key = event_item['key'],
+        ).save()
+
+    registered_teams = []
+
+    team_list = json.loads(requests.get(f"https://www.thebluealliance.com/api/v3/event/{event_item['key']}/teams", headers=my_headers).text)
+
+    match_list = json.loads(requests.get(f"https://www.thebluealliance.com/api/v3/event/{event_item['key']}/matches/simple", headers=my_headers).text)
+
+    for match_item in match_list:
+        if match_item['comp_level'] == "qm":
+            for team_number in match_item['alliances']['blue']['team_keys']:
+                alliance_colour='blue'
+                if not team_number in registered_teams: # Don't re-register teams if we already know they're registered
+                    registerTeam(team_number[3:], event_item, team_list)
+                    registered_teams.append(team_number)
+                registerMatch(event_item, team_number[3:], match_item, alliance_colour)
+            for team_number in match_item['alliances']['red']['team_keys']:
+                alliance_colour='red'
+                if not team_number in registered_teams: # Don't re-register teams if we already know they're registered
+                    registerTeam(team_number[3:], event_item, team_list)
+                    registered_teams.append(team_number)
+                registerMatch(event_item, team_number[3:], match_item, alliance_colour)            
+
 
 class Command(BaseCommand):
     help = "Pulls data from TBA API for setup of matches and events"
 
     def add_arguments(self, parser):
-        parser.add_argument('--id', nargs='*')
-        parser.add_argument('--year', nargs='?', default=datetime.now().year, const=datetime.now().year, type=int)
+        parser.add_argument('--key', nargs='*')
+        parser.add_argument('--year', nargs='*', type=int)
 
     def handle(self, *args, **options):
-        print(f"ID: {options['id']}")
+        print(f"EVENT KEY: {options['key']}")
         print(f"YEAR: {options['year']}")
 
-        result = json.loads(requests.get("https://www.thebluealliance.com/api/v3/team/frc8089/events/simple", headers=my_headers).text)
+        event_found = False
 
-        for i in result:
-            if i['year'] == options['year']:
-                print(i['key'] + " - " + i['name'])
-                if not Event.objects.filter(event_key=i['key']).exists():
-                    Event(
-                        name = i['name'],
-                        start_date = i['start_date'],
-                        end_date = i['end_date'],
-                        event_key = i['key'],
-                    ).save()
+        event_list = json.loads(requests.get("https://www.thebluealliance.com/api/v3/team/frc8089/events/simple", headers=my_headers).text)
 
-                result = json.loads(requests.get(f"https://www.thebluealliance.com/api/v3/event/{i['key']}/teams", headers=my_headers).text)
+        for event_item in event_list:
+            if options['year'] == None and options['key'] == None:
+                process_event(event_item)
+                event_found = True
 
-                result2 = json.loads(requests.get(f"https://www.thebluealliance.com/api/v3/event/{i['key']}/matches/simple", headers=my_headers).text)
+            elif options['year'] == None and not options['key'] == None and event_item['key'] == options['key'][0]:
+                process_event(event_item)
+                event_found = True
 
-                for item in result:
-                    if not Team.objects.filter(number=item['team_number']).exists():
-                        Team(
-                            number = item['team_number'],
-                            name = item['nickname']
-                        ).save()
-                    
-                    if not Registration.objects.filter(registered_team = Team.objects.get(number=item['team_number']), registered_event = Event.objects.get(event_key=i['key'])).exists():
-                        Registration(
-                            registered_team = Team.objects.get(number=item['team_number']),
-                            registered_event = Event.objects.get(event_key=i['key'])
-                        ).save()
+            elif not options['year'] == None and options['key'] == None and event_item['year'] == options['year'][0]:
+                process_event(event_item)
+                event_found = True
 
-                    print(f"Team {str(item['team_number'])} - {item['nickname']}")
+            elif not options['year'] == None and not options['key'] == None and event_item['year'] == options['year'][0] and event_item['key'] == options['key'][0]:
+                process_event(event_item)
+                event_found = True
 
-                    for match_item in result2:
-                        if match_item['comp_level'] == "qm":
-                            if not MatchResult.objects.filter(linked_event = Event.objects.get(event_key=i['key']), linked_team = Team.objects.get(number=item['team_number']), match_number = match_item['match_number']).exists():
-                                if "frc"+str(item['team_number']) in match_item['alliances']['blue']['team_keys']:
-                                    alliance_colour = "blue"
-                                    teamInMatch = True
-                                elif "frc"+str(item['team_number']) in match_item['alliances']['red']['team_keys']:
-                                    alliance_colour = "red"
-                                    teamInMatch = True
-                                else:
-                                    teamInMatch = False
-
-                                if teamInMatch:
-                                    print(f"Match {match_item['match_number']} - Team {item['team_number']} - {alliance_colour} alliance")
-
-                                    MatchResult(
-                                        match_number = match_item['match_number'],
-                                        linked_team = Team.objects.get(number=item['team_number']),
-                                        linked_event = Event.objects.get(event_key=i['key']),
-                                        alliance = alliance_colour,
-                                        recorded_time = timezone.now(),
-                                        auto_score = 0,
-                                        auto_move = False,
-                                        teleop_score = 0,
-                                        endgame_score = 0,
-                                        endgame_time = 0,
-                                        penalty = 0,
-                                        tippy = False,
-                                        disabled = False,
-                                        alliance_final_score = match_item['alliances'][alliance_colour]['score']
-                                    ).save()
-
-                
+        if not event_found:
+            print("No event found for criteria")
