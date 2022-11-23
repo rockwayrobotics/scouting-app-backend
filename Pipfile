@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 requests = "*"
 django-rename-app = "*"
+opencv-python = "*"
 
 [dev-packages]
 

@@ -1,0 +1,215 @@
+{% extends "scouting_app/base.html" %}
+{% block title %}Match Data Input{% endblock %}
+{% block header %}Match Data Input{% endblock %}
+
+{% block content %}
+<style>
+    #reader { 
+        max-width: 500px;
+        width: 100%;
+    }
+    .myQrCode {
+        width: 48%;
+        float: left;
+        text-align: center;
+    }
+    .myForm {
+        float: right;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+    .formBlock {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: table;
+        width: 100%;
+    }
+    .dataBlock {
+        width: 100%;
+        display: table-row;
+    }
+    .dataBlock label {
+        margin: 5px 10px;
+        padding: 3px 10px;
+        display: table-cell;
+        width:50%;
+    }
+    .dataBlock input {
+        margin: 5px 10px;
+        display: table-cell;
+        width:70%;
+    }
+    .shade {
+        background-color:lightgrey;
+    }
+    input[type=checkbox]{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+    input[type=checkbox]{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+    .toggle label {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 50px;
+        height: 25px;
+        background: grey;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+    }
+    .toggle label:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.5s;
+    }
+    input:checked + label {
+        background: #bada55;
+    }
+    input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+    label:active:after {
+        width: 10px;
+    }
+    .toggle {
+        margin:0 10px;
+    }
+    .button input{
+        background-color: #bada55;
+        border: none;
+        color: white;
+        padding: 15px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        float: right;
+        margin: 5px 0;
+      }
+
+      .clear input {
+        background-color:red;
+        margin-left: 10px;
+      }
+
+      
+</style>
+
+    <div class="myQrCode">
+        <h2>Scan QR Code</h2>
+        <div id="reader"></div>
+    </div>
+    
+    <div class="myForm">
+        <h2>Data Preview</h2>
+        <form action="/scan/" method="post", id="myForm">
+            {% csrf_token %}
+
+            {#Field names must match keys in QR code dictionary#}
+            <div class="formBlock">
+            <div class="dataBlock">
+                <label for="match_no">Match Number</label>
+                <input type="text" value="" id="match_no" name="match_no">
+            </div>
+            <div class="dataBlock shade">
+                <label for="team">Team Name</label>
+                <input type="text" value="" id="team" name="team">
+            </div>
+            <div class="dataBlock">
+                <label for="event">Team Name</label>
+                <input type="text" value="" id="event" name="event">
+            </div>
+            <div class="dataBlock shade">
+                <label for="time">Entry Time</label>
+                <input type="text" value="" id="time" name="time">
+            </div>
+            <div class="dataBlock">
+                <label for="auto">Score in Auto</label>
+                <input type="text" value="" id="auto" name="auto">
+            </div>
+            <div class="dataBlock shade">
+                <label for="a_move">Movement in Auto</label>
+                <input type="text" value="" id="a_move" name="a_move">
+            </div>
+            <div class="dataBlock">
+                <label for="tele">Score in Teleop</label>
+                <input type="text" value="" id="tele" name="tele">
+            </div>
+            <div class="dataBlock shade">
+                <label for="a_move">Movement in Auto</label>
+                <input type="text" value="" id="end" name="end">
+            </div>
+            <div class="dataBlock">
+                <label for="e_time">Endgame Time</label>
+                <input type="text" value="" id="e_time" name="e_time">
+            </div>
+            <div class="dataBlock shade">
+                <label for="penal">Penalties assigned</label>
+                <input type="text" value="" id="penal" name="penal">
+            </div>
+            <div class="dataBlock">
+                <label for="tip">Did the robot tip</label>
+                <input type="text" value="" id="tip" name="tip">
+            </div>
+            <div class="dataBlock shade">
+                <label for="disab">Did the robot become disabled</label>
+                <input type="text" value="" id="disab" name="disab">
+            </div>
+            
+            <div class="dataBlock">
+                <table>
+                    <tr>
+                        <td style="vertical-align: bottom;">
+                            <div class="toggle">
+                                <input type="checkbox" id="auto_submit" name="auto_submit" checked>
+                                <label for="auto_submit"> Auto submit? </label>
+                            </div>
+                        </td>
+                        <td style="vertical-align: bottom; padding-bottom:10px;">
+                            Auto Submit
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+
+            <div class="button clear">
+                <input type="button" value="Clear" onclick="clearForm()">
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit Data">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Refill form with data from django context
+    let my_dict = JSON.parse("{{ form_dict }}".replaceAll("&quot;", "\""));
+
+    if(my_dict["auto_submit"]) {
+        document.getElementById("auto_submit").checked = true;
+    }
+
+    for(const key in my_dict) {
+        document.getElementById(key).value = my_dict[key];
+    }
+</script>
+<script src="/static/html5-qrcode.min.js"></script>
+<script src="/static/scanner.js"></script>
+
+{% endblock %}
