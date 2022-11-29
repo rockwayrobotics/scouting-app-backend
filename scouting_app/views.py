@@ -8,6 +8,7 @@ from django.shortcuts import render
 from .models import MatchResult, Event, Team, Registration
 
 from .opencv import exe
+from .algorithms import generate_matrix
 
 
 def index(request):
@@ -59,6 +60,13 @@ def team_details(request, team_number):
     context = {'team': this_team, 'events': event_list, 'matches': match_list}
     return render(request, 'scouting_app/teamDetails.html', context)
 
+
+def rank(request, team_number):
+    this_team = Team.objects.get(number=team_number)
+    match_list = MatchResult.objects.filter(linked_team=this_team).order_by('recorded_time')
+    print(type(match_list))
+
+    return HttpResponse(str(team_number)+str(generate_matrix(match_list)))
 
 def team_at_event(request, event_id, team_number):
     this_event = Event.objects.get(id=event_id)

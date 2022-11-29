@@ -13,6 +13,7 @@ urlpatterns = [
     path('event/', views.event_list),
     path('team/', views.team_list),
     path('scan/', views.scan),
-    path("vis/", views.vis_test),
+    path('vis/', views.vis_test),
+    path('rank/<int:team_number>/', views.rank, name="rank team"),
 ]
 
