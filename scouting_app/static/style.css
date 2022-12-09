@@ -1,48 +1,75 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
-:root {
-	--foreground-color: #36454F;
-	--background-color: #F9F6EE;
-}
+* {
+	font-family:Verdana;
 
-*, h1, h2, span, div, li {
-	font-family: "Roboto", Arial, sans-serif !important;
 }
 
 body {
-	font-family: 'Cantarell', sans;
-	font-size: 16px;
-	background: var(--background-color);
-	color: var(--foreground-color);
-	margin: 0 auto;
-	text-align: center;
-	margin: 25px;
+    background-color:#333;
 }
 
-header h1 {
-	font-size: 60px;
-	font-weight: 600;
-	background-image: linear-gradient(to left, #000, #ccc);
-	color: transparent;
-	background-clip: text;
-	-webkit-background-clip: text;
-	margin: 0px;
-	padding: 0px;
-  }
-  header {
-	  border-bottom: 1px solid #ccc;
-	  margin: 10px;
-	  padding: 10px;
-  }
+p {
+    text-align:center;
+    color:#ff3;
+    font-size:30px;
+    letter-spacing:1px;
+}
 
-  .navigation {
-	  float:right
-  }
+table {
+    width:49%;
+    color:#fff;
+    border-radius:10px;
+    margin:2px;
+    border:1px solid #fff;
+}
 
-  .blueAlliance, .blueAlliance a {
-	color: #0F4BCB;
-  }
+th {
+    font-size:20px;
+    padding:5px;
+}
 
-  .redAlliance, .redAlliance a {
-	  color: #ED1C24;
-  }
+.team {
+    font-size:20px;
+    text-align:center;
+    width:50%;
+}
+
+a {
+	text-decoration:none;
+    color:#FFF;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+.stat {
+    background: #FFF;
+    color: #000;
+    font-size:18px;
+    text-align: center;
+    padding:8px;
+    border-radius: 5px;
+    border:2px solid #000;
+}
+
+.measure {
+    color:#FFF;
+    font-size:11px;
+    text-align:center;
+}
+
+.space {
+    padding:15px;
+}
+
+.left {
+    background-color:#e33;
+    float:left;
+}
+
+.right {
+    background-color:#77c;
+    float:right;
+    
+}
