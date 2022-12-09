@@ -64,7 +64,6 @@ def team_details(request, team_number):
 def rank(request, team_number):
     this_team = Team.objects.get(number=team_number)
     match_list = MatchResult.objects.filter(linked_team=this_team).order_by('recorded_time')
-    print(type(match_list))
 
     return HttpResponse(str(team_number)+str(generate_matrix(match_list)))
 
