@@ -8,7 +8,7 @@ from django.shortcuts import render
 from .models import MatchResult, Event, Team, Registration
 
 from .opencv import exe
-from .algorithms import generate_matrix
+from .algorithms import generate_matrix, generate_rank, fake_data
 
 
 def index(request):
@@ -65,7 +65,12 @@ def rank(request, team_number):
     this_team = Team.objects.get(number=team_number)
     match_list = MatchResult.objects.filter(linked_team=this_team).order_by('recorded_time')
 
-    return HttpResponse(str(team_number)+str(generate_matrix(match_list)))
+    match_list = fake_data(match_list)
+
+    matrix = generate_matrix(match_list)
+    team_data = (team_number, matrix)
+
+    return HttpResponse(str(team_number)+" Rank: "+str(generate_rank(team_data)[1]))
 
 def team_at_event(request, event_id, team_number):
     this_event = Event.objects.get(id=event_id)
@@ -155,4 +160,3 @@ def scan(request):
 def vis_test(request):
     exe()
     return HttpResponse("Beans")
-
