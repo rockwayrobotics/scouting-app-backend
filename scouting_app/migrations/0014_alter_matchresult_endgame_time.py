@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scouting_app', '0013_delete_teamdata_alter_event_event_key'),
+        ("scouting_app", "0013_delete_teamdata_alter_event_event_key"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='matchresult',
-            name='endgame_time',
+            model_name="matchresult",
+            name="endgame_time",
             field=models.FloatField(default=0),
         ),
     ]

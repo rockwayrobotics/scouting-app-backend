@@ -7,42 +7,44 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scouting_app', '0002_event_team_matchresult'),
+        ("scouting_app", "0002_event_team_matchresult"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='matchresult',
-            old_name='auto_ball',
-            new_name='auto_score',
+            model_name="matchresult",
+            old_name="auto_ball",
+            new_name="auto_score",
         ),
         migrations.RenameField(
-            model_name='matchresult',
-            old_name='climb_level',
-            new_name='endgame_score',
+            model_name="matchresult",
+            old_name="climb_level",
+            new_name="endgame_score",
         ),
         migrations.RenameField(
-            model_name='matchresult',
-            old_name='climb_time',
-            new_name='endgame_time',
+            model_name="matchresult",
+            old_name="climb_time",
+            new_name="endgame_time",
         ),
         migrations.RenameField(
-            model_name='matchresult',
-            old_name='team_number',
-            new_name='teleop_score',
+            model_name="matchresult",
+            old_name="team_number",
+            new_name="teleop_score",
         ),
         migrations.RemoveField(
-            model_name='matchresult',
-            name='teleop_ball',
+            model_name="matchresult",
+            name="teleop_ball",
         ),
         migrations.AddField(
-            model_name='matchresult',
-            name='tippy',
+            model_name="matchresult",
+            name="tippy",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='matchresult',
-            name='recorded_time',
-            field=models.DateTimeField(default=datetime.datetime(2022, 10, 21, 20, 14, 37, 428335)),
+            model_name="matchresult",
+            name="recorded_time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2022, 10, 21, 20, 14, 37, 428335)
+            ),
         ),
     ]

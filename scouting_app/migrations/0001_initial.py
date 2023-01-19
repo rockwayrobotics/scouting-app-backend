@@ -7,22 +7,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='TeamData',
+            name="TeamData",
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=30)),
-                ('record_date', models.DateField()),
-                ('driving_skill', models.DecimalField(decimal_places=2, max_digits=3)),
-                ('died', models.BooleanField()),
-                ('tipped', models.BooleanField()),
-                ('points_scored', models.IntegerField()),
-                ('comments', models.CharField(max_length=250)),
-                ('safety_concerns', models.CharField(choices=[('F', 'Fire Hazard'), ('P', 'Pneumatic Hazard'), ('E', 'Electrical Hazard'), ('T', 'Tipping Hazard'), ('M', 'Mechanical Hazard'), ('N', 'No Concerns')], default='N', max_length=1)),
+                ("id", models.IntegerField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=30)),
+                ("record_date", models.DateField()),
+                ("driving_skill", models.DecimalField(decimal_places=2, max_digits=3)),
+                ("died", models.BooleanField()),
+                ("tipped", models.BooleanField()),
+                ("points_scored", models.IntegerField()),
+                ("comments", models.CharField(max_length=250)),
+                (
+                    "safety_concerns",
+                    models.CharField(
+                        choices=[
+                            ("F", "Fire Hazard"),
+                            ("P", "Pneumatic Hazard"),
+                            ("E", "Electrical Hazard"),
+                            ("T", "Tipping Hazard"),
+                            ("M", "Mechanical Hazard"),
+                            ("N", "No Concerns"),
+                        ],
+                        default="N",
+                        max_length=1,
+                    ),
+                ),
             ],
         ),
     ]

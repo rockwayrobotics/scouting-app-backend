@@ -7,23 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scouting_app', '0007_remove_matchresult_team_number_and_more'),
+        ("scouting_app", "0007_remove_matchresult_team_number_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='matchresult',
-            name='disabled',
+            model_name="matchresult",
+            name="disabled",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='matchresult',
-            name='scouter_comments',
-            field=models.CharField(default='', max_length=500),
+            model_name="matchresult",
+            name="scouter_comments",
+            field=models.CharField(default="", max_length=500),
         ),
         migrations.AlterField(
-            model_name='matchresult',
-            name='recorded_time',
-            field=models.DateTimeField(default=datetime.datetime(2022, 10, 21, 20, 48, 38, 566515)),
+            model_name="matchresult",
+            name="recorded_time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2022, 10, 21, 20, 48, 38, 566515)
+            ),
         ),
     ]
