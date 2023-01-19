@@ -1,6 +1,9 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from random import seed, randint
 from .models import MatchResult
+
+plt.style.use('dark_background')
 
 class color:
    PURPLE = '\033[95m'
@@ -39,28 +42,28 @@ def generate_matrix(match_list):
                               i.teleop_score,
                               i.alliance_final_score,
                               int(i.penalty),])
-        print(color.CYAN+color.UNDERLINE+
-              "\nMatch #"+
-              color.END+color.DARKCYAN+color.UNDERLINE+
-              str(i.match_number)+
-              color.END+
-              "\n    auto_score: "+
-              color.YELLOW+
-              str(round(new_value[0]))+
-              color.END+
-              "\n    teleop_score: "+
-              color.BLUE+
-              str(round(new_value[1]))+
-              color.END+
-              "\n    final_score: "+
-              color.PURPLE+
-              str(round(new_value[2]))+
-              color.END+
-              "\n    penalities: "+
-              color.RED+
-              str(new_value[3])+
-              color.END
-              )
+        # print(color.CYAN+color.UNDERLINE+
+        #       "\nMatch #"+
+        #       color.END+color.DARKCYAN+color.UNDERLINE+
+        #       str(i.match_number)+
+        #       color.END+
+        #       "\n    auto_score: "+
+        #       color.YELLOW+
+        #       str(round(new_value[0]))+
+        #       color.END+
+        #       "\n    teleop_score: "+
+        #       color.BLUE+
+        #       str(round(new_value[1]))+
+        #       color.END+
+        #       "\n    final_score: "+
+        #       color.PURPLE+
+        #       str(round(new_value[2]))+
+        #       color.END+
+        #       "\n    penalities: "+
+        #       color.RED+
+        #       str(new_value[3])+
+        #       color.END
+        #       )
         results_matrix = np.append(
             results_matrix,
             [new_value],
@@ -72,23 +75,58 @@ def generate_matrix(match_list):
 # Generate a ranking value from a `results_matrix`
 def generate_rank(team_data):
     results_matrix = team_data[1]
+    crop_results = results_matrix[2:-2]
 
-    weights = np.array([0.8, 1, 1.5, 4])
-    expected_avg = np.array([12, 25, 40, 2])
+    weights = np.array([0.8, 1, 1.5, -4])
+    expected_avg = np.array([18, 35, 65, 4])
+    x = np.linspace(0,2,5)
+    f = x**2
 
     # TODO:
-    # - [ ] rank based on expected average
+    # - [x] rank based on expected average
     # - [ ] adjust expected average on frontend
     # - [ ] add in wanted fields
     # - [ ] test ranking for different teams
     # - [ ] value recent matches more highly
 
+
+    conv_results = np.empty((4,38))
+    for i in range(0,4):
+        field = np.array([])
+        field = crop_results[:,i]
+
+        convolution = np.convolve(f, field, mode="same")
+        field_name = ""
+        match i:
+            case 0:
+                field_name = "Auto"
+                plt.plot(field, label=field_name)
+                plt.plot(convolution, label=field_name+"convolution")
+                plt.plot(f, label="kernel")
+            case 1:
+                field_name = "Teleop"
+            case 2:
+                field_name = "Endgame"
+            case 3:
+                field_name = "Penalties"
+
+
+        conv_results = np.append(conv_results, [convolution], axis=0)
+        # print(field_name+": "+str(field.round()))
+        # print(convolution.round())
+    plt.title("Match Results")
+    plt.legend(title="Field:")
+    plt.savefig('results.png')
+    plt.close()
+    
+    print(conv_results.round())
+
+    #conv_results = np.convolve(crop_results, kernel, mode="valid")
+    #print("\nConvolution: "+str(conv_results))
     averages = np.average(results_matrix, axis=0) # get the averages
     difference = np.subtract(averages, expected_avg)
     weighted_avg = difference * weights # weight the averages
-    #weighted_avg *= 2 # half value
-    print(np.average(difference))
     
-    total = round(weighted_avg.sum()) # clip value to 0-100
+    total = np.clip(round(np.average(weighted_avg)+40), 0, 100) # clip value to 0-100
 
     return (team_data[0], total)
