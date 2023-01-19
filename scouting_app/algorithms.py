@@ -14,18 +14,20 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+# just generate some fake match data for now, based around gaussian distribution
 def fake_data(match_list):
     for i in match_list:
-        i.auto_score = np.random.normal(loc=30.0, scale=10.0)
+        i.auto_score = np.random.normal(loc=12.0, scale=6.0)
         i.auto_move = True
-        i.teleop_score = np.clip(np.random.normal(loc=50.0, scale=25.0), 0, 75)
-        i.endgame_score = np.clip(np.random.normal(loc=50, scale=45.0), 0, 150)
-        i.penalty = randint(0,4)
+        i.teleop_score = np.clip(np.random.normal(loc=25.0, scale=10.0), 0, 75)
+        i.endgame_score = np.clip(np.random.normal(loc=40, scale=25.0), 0, 150)
+        i.penalty = randint(0,2)
         i.tippy = False
         i.disabled = False
         i.save()
     return match_list
 
+# generate a `results_matrix` from the `MatchResult`
 def generate_matrix(match_list):
     seed()
     #fake_data(match_list)
@@ -66,17 +68,27 @@ def generate_matrix(match_list):
 
     return results_matrix
 
+
+# Generate a ranking value from a `results_matrix`
 def generate_rank(team_data):
     results_matrix = team_data[1]
 
-    weights = np.array([0.8, 1.3, 1.5, 4])
-    print(results_matrix)
+    weights = np.array([0.8, 1, 1.5, 4])
+    expected_avg = np.array([12, 25, 40, 2])
 
-    #clipped = results_matrix[1:-1] # remove the oldest & most recent
+    # TODO:
+    # - [ ] rank based on expected average
+    # - [ ] adjust expected average on frontend
+    # - [ ] add in wanted fields
+    # - [ ] test ranking for different teams
+    # - [ ] value recent matches more highly
+
     averages = np.average(results_matrix, axis=0) # get the averages
-    weighted_avg = averages * weights # weight the averages
-    weighted_avg[3] *= -1 # inverse because it counts against you
+    difference = np.subtract(averages, expected_avg)
+    weighted_avg = difference * weights # weight the averages
+    #weighted_avg *= 2 # half value
+    print(np.average(difference))
     
-    total = round(weighted_avg.sum())
+    total = round(weighted_avg.sum()) # clip value to 0-100
 
     return (team_data[0], total)
