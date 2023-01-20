@@ -85,7 +85,7 @@ def generate_rank(team_data):
     expected_avg = np.array([18, 35, 65, 4])
     # x = np.linspace(0,1,4)
     # f = x**2
-    f = np.array([0.2, 0.2, 0.2])
+    f = np.array([0.3, 0.3, 0.3, 0.3])
 
     # TODO:
     # - [x] rank based on expected average
@@ -93,28 +93,34 @@ def generate_rank(team_data):
     # - [ ] add in wanted fields
     # - [ ] test ranking for different teams
     # - [ ] value recent matches more highly
+    prop_cycle = plt.rcParams['axes.prop_cycle']
+    colors = prop_cycle.by_key()['color']
 
-    conv_results = np.empty((4, 38))
+    conv_results = np.empty((4,38))
     for i in range(0, 4):
         field = np.array([])
         field = crop_results[:, i]
 
         convolution = np.convolve(f, field, mode="same")
         field_name = ""
+        color = ""
         match i:
             case 0:
                 field_name = "Auto"
+                color = colors[0]
             case 1:
                 field_name = "Teleop"
+                color = colors[1]
             case 2:
                 field_name = "Endgame"
-                plt.plot(field, label=field_name)
-                plt.plot(convolution, label=field_name + "convolution")
-                plt.plot(f, label="kernel", color="lightgrey")
+                color = colors[2]
             case 3:
                 field_name = "Penalties"
+                color = colors[3]
 
-        conv_results = np.append(conv_results, [convolution], axis=0)
+        conv_results[i] = convolution
+        plt.plot(convolution, color=color, label=field_name)
+        plt.axhline(expected_avg[i], color=color, alpha=0.4)
         # print(field_name+": "+str(field.round()))
         # print(convolution.round())
     plt.title("Match Results")
@@ -126,7 +132,7 @@ def generate_rank(team_data):
 
     # conv_results = np.convolve(crop_results, kernel, mode="valid")
     # print("\nConvolution: "+str(conv_results))
-    averages = np.average(results_matrix, axis=0)  # get the averages
+    averages = np.average(conv_results, axis=1)  # get the averages
     difference = np.subtract(averages, expected_avg)
     weighted_avg = difference * weights  # weight the averages
 
