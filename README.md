@@ -49,6 +49,5 @@ We're using the [Black](https://black.readthedocs.io/en/stable/) code formatter.
 After you've changed some files, make sure to run it on the files you've changed!
 
 ```bash
-pip install black # install
 black <source_file_or_directory> # format file
 ```

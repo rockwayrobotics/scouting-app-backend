@@ -2,3 +2,5 @@ Django
 requests
 opencv-python
 numpy
+black
+matplotplib
