@@ -78,30 +78,35 @@ def generate_matrix(match_list):
 
 # Generate a ranking value from a `results_matrix`
 def generate_rank(team_data):
-    results_matrix = team_data[1]
-    crop_results = results_matrix[2:-2]
-
-    weights = np.array([0.8, 1, 1.5, -4])
-    expected_avg = np.array([18, 35, 65, 4])
-    # x = np.linspace(0,1,4)
-    # f = x**2
-    f = np.array([0.3, 0.3, 0.3, 0.3])
-
     # TODO:
     # - [x] rank based on expected average
     # - [ ] adjust expected average on frontend
     # - [ ] add in wanted fields
     # - [ ] test ranking for different teams
     # - [ ] value recent matches more highly
-    prop_cycle = plt.rcParams['axes.prop_cycle']
-    colors = prop_cycle.by_key()['color']
 
-    conv_results = np.empty((4,38))
+    np.set_printoptions(precision=3, suppress=True)
+    results_matrix = team_data[1]
+    crop_results = results_matrix[2:-2]
+
+    weights = np.array([1, 1, 1, 1])
+    expected_avg = np.array([12, 25, 40, 1])
+    # x = np.linspace(0,1,4)
+    # f = x**2
+    f = np.full(3, 1 / 3)
+    kernel = np.logspace(2,1,num=5,base=0.2)
+
+    prop_cycle = plt.rcParams["axes.prop_cycle"]
+    colors = prop_cycle.by_key()["color"]
+    deviation = np.empty(4)
+
+    conv_results = np.empty((4, 38))
     for i in range(0, 4):
         field = np.array([])
         field = crop_results[:, i]
 
         convolution = np.convolve(f, field, mode="same")
+        #convolution = np.convolve(kernel, convolution, mode="same")
         field_name = ""
         color = ""
         match i:
@@ -118,24 +123,26 @@ def generate_rank(team_data):
                 field_name = "Penalties"
                 color = colors[3]
 
+        deviation[i] = np.std(field)
         conv_results[i] = convolution
+        plt.plot(field, label=field_name+" Origin", alpha=0.6, color=color)
         plt.plot(convolution, color=color, label=field_name)
-        plt.axhline(expected_avg[i], color=color, alpha=0.4)
-        # print(field_name+": "+str(field.round()))
-        # print(convolution.round())
-    plt.title("Match Results")
+        plt.axhline(expected_avg[i], color=color, alpha=0.2)
+        
+    print(deviation)
+    plt.title(str(team_data[0])+" Match Results")
     plt.legend(title="Field:")
+    plt.xlabel("Match")
+    plt.ylabel("Points")
     plt.savefig("results.png")
     plt.close()
 
-    print(conv_results.round())
-
-    # conv_results = np.convolve(crop_results, kernel, mode="valid")
-    # print("\nConvolution: "+str(conv_results))
     averages = np.average(conv_results, axis=1)  # get the averages
-    difference = np.subtract(averages, expected_avg)
+    difference = np.multiply(np.subtract(averages, expected_avg), 2)
     weighted_avg = difference * weights  # weight the averages
 
-    total = np.clip(round(np.average(weighted_avg) + 40), 0, 100)  # clip value to 0-100
+    total = np.clip(
+        np.add(np.average(weighted_avg), 40).round(), 0, 100
+    )  # clip value to 0-100
 
     return (team_data[0], total)
