@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import threading
 from random import seed, randint
 from .models import MatchResult
 
@@ -76,6 +77,15 @@ def generate_matrix(match_list):
     return results_matrix
 
 
+def plt_save(team):
+    plt.title(str(team) + " Match Results")
+    plt.legend(title="Field:")
+    plt.xlabel("Match")
+    plt.ylabel("Points")
+    plt.savefig("results.png")
+    plt.close()
+
+
 # Generate a ranking value from a `results_matrix`
 def generate_rank(team_data):
     # TODO:
@@ -94,7 +104,7 @@ def generate_rank(team_data):
     # x = np.linspace(0,1,4)
     # f = x**2
     f = np.full(3, 1 / 3)
-    kernel = np.logspace(2,1,num=5,base=0.2)
+    kernel = np.logspace(2, 1, num=5, base=0.2)
 
     prop_cycle = plt.rcParams["axes.prop_cycle"]
     colors = prop_cycle.by_key()["color"]
@@ -106,7 +116,7 @@ def generate_rank(team_data):
         field = crop_results[:, i]
 
         convolution = np.convolve(f, field, mode="same")
-        #convolution = np.convolve(kernel, convolution, mode="same")
+        # convolution = np.convolve(kernel, convolution, mode="same")
         field_name = ""
         color = ""
         match i:
@@ -125,17 +135,13 @@ def generate_rank(team_data):
 
         deviation[i] = np.std(field)
         conv_results[i] = convolution
-        plt.plot(field, label=field_name+" Origin", alpha=0.6, color=color)
+        plt.plot(field, label=field_name + " Origin", alpha=0.6, color=color)
         plt.plot(convolution, color=color, label=field_name)
         plt.axhline(expected_avg[i], color=color, alpha=0.2)
-        
+
     print(deviation)
-    plt.title(str(team_data[0])+" Match Results")
-    plt.legend(title="Field:")
-    plt.xlabel("Match")
-    plt.ylabel("Points")
-    plt.savefig("results.png")
-    plt.close()
+
+    threading.Thread(target=plt_save, args=(team_data[0],)).start()
 
     averages = np.average(conv_results, axis=1)  # get the averages
     difference = np.multiply(np.subtract(averages, expected_avg), 2)
