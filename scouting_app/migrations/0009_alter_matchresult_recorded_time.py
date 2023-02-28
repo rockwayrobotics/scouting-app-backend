@@ -5,15 +5,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scouting_app', '0008_matchresult_disabled_matchresult_scouter_comments_and_more'),
+        (
+            "scouting_app",
+            "0008_matchresult_disabled_matchresult_scouter_comments_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='matchresult',
-            name='recorded_time',
+            model_name="matchresult",
+            name="recorded_time",
             field=models.DateTimeField(default=datetime.datetime.now),
         ),
     ]

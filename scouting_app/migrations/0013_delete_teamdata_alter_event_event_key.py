@@ -4,18 +4,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scouting_app', '0012_event_event_key_alter_matchresult_scouter_comments'),
+        ("scouting_app", "0012_event_event_key_alter_matchresult_scouter_comments"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='TeamData',
+            name="TeamData",
         ),
         migrations.AlterField(
-            model_name='event',
-            name='event_key',
+            model_name="event",
+            name="event_key",
             field=models.CharField(max_length=9),
         ),
     ]

@@ -5,20 +5,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scouting_app', '0003_rename_auto_ball_matchresult_auto_score_and_more'),
+        ("scouting_app", "0003_rename_auto_ball_matchresult_auto_score_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='matchresult',
-            name='team_number',
+            model_name="matchresult",
+            name="team_number",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='matchresult',
-            name='recorded_time',
-            field=models.DateTimeField(default=datetime.datetime(2022, 10, 21, 20, 18, 12, 653503)),
+            model_name="matchresult",
+            name="recorded_time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2022, 10, 21, 20, 18, 12, 653503)
+            ),
         ),
     ]

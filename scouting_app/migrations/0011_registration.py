@@ -5,18 +5,37 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scouting_app', '0010_rename_event_matchresult_linked_event_and_more'),
+        ("scouting_app", "0010_rename_event_matchresult_linked_event_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='registration',
+            name="registration",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('registered_event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scouting_app.event')),
-                ('registered_team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scouting_app.team')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "registered_event",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="scouting_app.event",
+                    ),
+                ),
+                (
+                    "registered_team",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="scouting_app.team",
+                    ),
+                ),
             ],
         ),
     ]

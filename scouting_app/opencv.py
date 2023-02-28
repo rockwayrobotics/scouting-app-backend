@@ -4,6 +4,7 @@ from .models import MatchResult, Team, Event
 import numpy as np
 import json
 
+
 def draw_checkmark(bottom, width, pos):
     """Gets the points for a checkmark given how far below a point the bottom is, how wide the checkmark is and the position this should also all come from."""
     (x, y) = pos
@@ -15,8 +16,9 @@ def draw_checkmark(bottom, width, pos):
     top_gen = (x + width * 3 + 2 * bottom, y - bottom)
     mid = (x + bottom, y + bottom - width)
     mid_gen = (x + bottom + width, y + bottom - width)
-    arr = np.array([start, bot, bot_gen, top_gen, top,
-                   mid_gen, mid, start_gen], np.int32)
+    arr = np.array(
+        [start, bot, bot_gen, top_gen, top, mid_gen, mid, start_gen], np.int32
+    )
     return [arr.reshape(-1, 1, 2)]
 
 
@@ -40,7 +42,8 @@ def string_to_dict(data):
 
 def find_text_location(text_size, width):
     """Gets location to place bottom left of a centered text box."""
-    return int((width - text_size) / 2)    
+    return int((width - text_size) / 2)
+
 
 def run_video():
     """Runs an opencv video that scans qr codes and returns a list of the scanned strings."""
@@ -55,8 +58,8 @@ def run_video():
         if feedback_counter > 0:
             feedback_counter -= 1
             checkmark(frame)
-            cv2.imshow('frame', frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            cv2.imshow("frame", frame)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
             continue
         try:
@@ -68,10 +71,16 @@ def run_video():
                 feedback_counter = 30
         except:
             pass
-        cv2.putText(frame, "Press 'q' To Exit", (find_text_location(
-            268, width), int(height) - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0))
-        cv2.imshow('frame', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv2.putText(
+            frame,
+            "Press 'q' To Exit",
+            (find_text_location(268, width), int(height) - 10),
+            cv2.FONT_HERSHEY_COMPLEX,
+            1,
+            (0, 255, 0),
+        )
+        cv2.imshow("frame", frame)
+        if cv2.waitKey(1) & 0xFF == ord("q"):
             break
     vid.release()
     cv2.destroyAllWindows()

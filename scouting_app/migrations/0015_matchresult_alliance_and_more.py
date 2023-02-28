@@ -4,21 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scouting_app', '0014_alter_matchresult_endgame_time'),
+        ("scouting_app", "0014_alter_matchresult_endgame_time"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='matchresult',
-            name='alliance',
-            field=models.CharField(default='r', max_length=1),
+            model_name="matchresult",
+            name="alliance",
+            field=models.CharField(default="r", max_length=1),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='matchresult',
-            name='alliance_final_score',
+            model_name="matchresult",
+            name="alliance_final_score",
             field=models.IntegerField(default=0),
         ),
     ]
