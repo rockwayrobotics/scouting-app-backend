@@ -8,6 +8,9 @@ django = "*"
 requests = "*"
 django-rename-app = "*"
 opencv-python = "*"
+numpy = "*"
+black = "*"
+matplotlib = "*"
 
 [dev-packages]
 
