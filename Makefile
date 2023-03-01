@@ -19,3 +19,5 @@ setup:
 	@pipenv install
 	@echo "\nMigrating database...\n"
 	@pipenv run python manage.py migrate
+	@echo "\nCreating Admin superuser...\n"
+	@pipenv run python manage.py createsuperuser
