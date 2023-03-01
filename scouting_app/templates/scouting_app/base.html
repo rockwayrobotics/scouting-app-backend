@@ -1,11 +1,15 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="stylesheet" href="{% static 'style.css' %}">
+	{% compress css %}
+	<link type="text/x-scss" href="{% static 'scouting_app/style.scss' %}" rel="stylesheet" media="screen">
+	{% endcompress %}
+
 	{% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | 8089 Scouting App</title>
 </head>

@@ -4,6 +4,8 @@ run:
 	@echo "Formatting code...\n"
 	@pipenv run black *.py
 	@pipenv run black **/*.py
+	@echo "\nGenerating SCSS...\n"
+	@pipenv run python manage.py collectstatic
 	@echo "\nRunning server...\n"
 	@pipenv run python manage.py runserver ${DJANGO_PORT}
 	@exit

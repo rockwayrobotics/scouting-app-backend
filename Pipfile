@@ -11,6 +11,8 @@ opencv-python = "*"
 numpy = "*"
 black = "*"
 matplotlib = "*"
+django-compressor = "*"
+django-libsass = "*"
 
 [dev-packages]
 
