@@ -5,6 +5,13 @@ run:
 	@echo "\nRunning server...\n"
 	@pipenv run python manage.py runserver
 
+clean:
+	@echo "Cleaning up..."
+	@rm -rf __pycache__/
+	@rm -f db.sqlite3
+	@rm -f db.sqlite3-journal
+	@rm -f *.log
+
 setup:
 	@echo "Installing dependencies...\n"
 	@pipenv install
