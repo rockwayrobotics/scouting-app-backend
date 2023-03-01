@@ -5,7 +5,7 @@ run:
 	@pipenv run black *.py
 	@pipenv run black **/*.py
 	@echo "\nGenerating SCSS...\n"
-	@pipenv run python manage.py collectstatic
+	@pipenv run python manage.py collectstatic --no-input
 	@echo "\nRunning server...\n"
 	@pipenv run python manage.py runserver ${DJANGO_PORT}
 	@exit
