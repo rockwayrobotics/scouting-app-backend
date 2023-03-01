@@ -19,5 +19,7 @@ setup:
 	@pipenv install
 	@echo "\nMigrating database...\n"
 	@pipenv run python manage.py migrate
+	@echo "\nFetching TBA data...\n"
+	@pipenv run python manage.py setupEvent"
 	@echo "\nCreating Admin superuser...\n"
 	@pipenv run python manage.py createsuperuser

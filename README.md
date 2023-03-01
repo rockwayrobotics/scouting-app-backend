@@ -27,6 +27,8 @@ DJANGO_PORT=8000
 ```bash
 make setup # install dependencies & migrate DB
 make run # run the server
+
+make clean # (optional)
 ```
 
 ### Manually
@@ -35,6 +37,8 @@ pip install pipenv # install pipenv
 
 pipenv install # install dependencies
 pipenv run python manage.py migrate # migrate DB
+pipenv run python manage.py setupEvent # fetch data from TBA
+pipenv run python manage.py createsuperuser # create Django admin superuser
 
 pipenv run python manage.py runserver # run server
 ```
