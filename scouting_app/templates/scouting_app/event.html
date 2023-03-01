@@ -3,7 +3,7 @@
 {% block header %}{{ event.name }} {% endblock %}
 
 {% block content  %}
-<div style="float: right; width:50%;">
+<div class="event">
     <h3>Match List</h3>
     {% if unique_match_list %}
         {% for match in unique_match_list %}

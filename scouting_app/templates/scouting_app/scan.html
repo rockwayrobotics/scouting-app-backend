@@ -3,118 +3,13 @@
 {% block header %}Match Data Input{% endblock %}
 
 {% block content %}
-<style>
-    #reader { 
-        max-width: 500px;
-        width: 100%;
-    }
-    .myQrCode {
-        width: 48%;
-        float: left;
-        text-align: center;
-    }
-    .myForm {
-        float: right;
-        font-family: Arial, Helvetica, sans-serif;
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-    }
-    .formBlock {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        display: table;
-        width: 100%;
-    }
-    .dataBlock {
-        width: 100%;
-        display: table-row;
-    }
-    .dataBlock label {
-        margin: 5px 10px;
-        padding: 3px 10px;
-        display: table-cell;
-        width:50%;
-    }
-    .dataBlock input {
-        margin: 5px 10px;
-        display: table-cell;
-        width:70%;
-    }
-    .shade {
-        background-color:lightgrey;
-    }
-    input[type=checkbox]{
-        height: 0;
-        width: 0;
-        visibility: hidden;
-    }
-    input[type=checkbox]{
-        height: 0;
-        width: 0;
-        visibility: hidden;
-    }
-    .toggle label {
-        cursor: pointer;
-        text-indent: -9999px;
-        width: 50px;
-        height: 25px;
-        background: grey;
-        display: block;
-        border-radius: 100px;
-        position: relative;
-    }
-    .toggle label:after {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        width: 20px;
-        height: 20px;
-        background: #fff;
-        border-radius: 90px;
-        transition: 0.5s;
-    }
-    input:checked + label {
-        background: #bada55;
-    }
-    input:checked + label:after {
-        left: calc(100% - 5px);
-        transform: translateX(-100%);
-    }
-    label:active:after {
-        width: 10px;
-    }
-    .toggle {
-        margin:0 10px;
-    }
-    .button input{
-        background-color: #bada55;
-        border: none;
-        color: white;
-        padding: 15px 15px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        border-radius: 5px;
-        float: right;
-        margin: 5px 0;
-      }
-
-      .clear input {
-        background-color:red;
-        margin-left: 10px;
-      }
-
-      
-</style>
-
-    <div class="myQrCode">
+<div class="input">
+    <div class="qrcode">
         <h2>Scan QR Code</h2>
         <div id="reader"></div>
     </div>
     
-    <div class="myForm">
+    <div class="form">
         <h2>Data Preview</h2>
         <form action="/scan/" method="post", id="myForm">
             {% csrf_token %}
@@ -195,6 +90,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 
 <script>

@@ -3,7 +3,7 @@
 {% block header %}Team {{ team.number }} ({{ team.name }}){% endblock %}
 
 {% block content %}
-<div style="float: left; width:45%;">
+<div class="match">
     <h3>Events</h3>
     {% for event in events%}
         <div onclick="filterEvent('{{ event.registered_event.id }}')" style="cursor: pointer;">

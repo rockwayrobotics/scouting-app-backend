@@ -3,25 +3,25 @@
 {% block header %}{{ event.name }}{% endblock %}
 
 {% block content %}
-<table style="width: 100%;">
+<div class="match">
+<table>
     <tr>
-        <td style="text-align: left;">
+        <td>
             {% if prevMatch != 0 %}
                 <a href="/event/{{ event_number }}/match/{{ prevMatch }}"><<<</a>
             {% endif %}
         </td>
         <td><h2>Match {{ match_number }}</h2></td>
-        <td style="text-align: right;"><a href="/event/{{ event_number }}/match/{{ nextMatch }}">>>></a></td>
+        <td><a href="/event/{{ event_number }}/match/{{ nextMatch }}">>>></a></td>
     </tr>
-
 </table>
 
 {% if latest_match_list %}
-<div style="float: left; width:45%;" class="redAlliance">
+<div class="redAlliance">
     <h3>Red Alliance - {{ r_score }}  {% if winner == 'Red' %}****{% endif %}</h3>
     {% for match in latest_match_list %}
         {% if match.alliance == 'red' %}
-            <div style="border: solid 1px #ccc">
+            <div>
                 <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
                     <tr>
@@ -57,11 +57,12 @@
         {% endif %}
     {% endfor %}
 </div>
-<div style="float: left; width:45%" class="blueAlliance">
+
+<div class="blueAlliance">
     <h3>Blue Alliance - {{ b_score }} {% if winner == 'Blue' %}****{% endif %}</h3>
         {% for match in latest_match_list %}
         {% if match.alliance == 'blue' %}
-            <div style="border: solid 1px #ccc">
+            <div>
                 <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
                 <table>
                     <tr>
@@ -101,4 +102,5 @@
 {% else %}
     <p>No team data is available for this match.</p>
 {% endif %}
+</div>
 {% endblock %}
