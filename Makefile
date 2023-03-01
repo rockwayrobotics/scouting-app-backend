@@ -1,9 +1,11 @@
+include .env
+
 run:
 	@echo "Formatting code...\n"
 	@black *.py
 	@black **/*.py
 	@echo "\nRunning server...\n"
-	@pipenv run python manage.py runserver
+	@pipenv run python manage.py runserver ${DJANGO_PORT}
 
 clean:
 	@echo "Cleaning up..."
