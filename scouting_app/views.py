@@ -182,18 +182,23 @@ def scan(request):
         context = {"form_dict": {}}
 
         return render(request, "scouting_app/scan.html", context)
-    
+
+
 def entry_page(request):
     return render(request, "scouting_app/Entry-page.html")
+
 
 def events_schedule(request):
     return render(request, "scouting_app/Events-schedule.html")
 
+
 def matches_schedule(request):
     return render(request, "scouting_app/Matches-schedule.html")
 
+
 def team_stats(request):
     return render(request, "scouting_app/Team-stats.html")
+
 
 def match_stats(request):
     return render(request, "scouting_app/Match-stats.html")

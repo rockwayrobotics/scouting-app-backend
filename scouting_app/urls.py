@@ -24,12 +24,11 @@ urlpatterns = [
     path("event/<int:event_id>/", views.event_details),
     path("event/", views.event_list),
     path("team/", views.team_list),
-    path("scan/", views.scan, name='scan-qr'),
+    path("scan/", views.scan, name="scan-qr"),
     path("vis/", views.vis_test),
-
-    path("entry_page/", views.entry_page, name='entry-page'),
-    path("events_schedule/", views.events_schedule, name='events-schedule'),
-    path("matches_schedule/", views.matches_schedule, name='matches-schedule'),
-    path("team_stats/", views.team_stats, name='team-stats'),
-    path("match_stats/", views.match_stats, name='match-stats'),
+    path("entry_page/", views.entry_page, name="entry-page"),
+    path("events_schedule/", views.events_schedule, name="events-schedule"),
+    path("matches_schedule/", views.matches_schedule, name="matches-schedule"),
+    path("team_stats/", views.team_stats, name="team-stats"),
+    path("match_stats/", views.match_stats, name="match-stats"),
 ]
