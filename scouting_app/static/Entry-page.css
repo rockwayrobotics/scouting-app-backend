@@ -1,0 +1,37 @@
+h1 {
+  text-align: center;
+  color: #FFF;
+}
+
+a:link, a:visited {
+  background: #a71f28;
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  padding: 10px 10px;
+  width: 200px;
+  text-decoration:none;
+  display: block;
+}
+
+.team {
+  position: absolute;
+  top:75px;
+  left:35%;
+}
+
+.events {
+  position: absolute;
+  top:225px;
+  left:35%;
+}
+
+.qr {
+  position: absolute;
+  top:375px;
+  left:35%;
+}
+
+a:hover {
+  background-color: #b72f38
+}

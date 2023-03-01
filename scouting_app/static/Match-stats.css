@@ -1,0 +1,70 @@
+body {
+    background-color:#333;
+}
+
+p {
+    text-align:center;
+    color:#ff3;
+    font-size:30px;
+    letter-spacing:1px;
+    margin:10px;
+}
+
+table {
+    width:49%;
+    color:#fff;
+    border-radius:10px;
+    margin:2px;
+    border:1px solid #fff;
+}
+
+th {
+    font-size:20px;
+    padding:5px;
+}
+
+.team {
+    font-size:20px;
+    text-align:center;
+    width:50%;
+}
+
+a {
+	text-decoration:none;
+    color:#FFF;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+.stat {
+    background: #FFF;
+    color: #000;
+    font-size:18px;
+    text-align: center;
+    padding:8px;
+    border-radius: 5px;
+    border:2px solid #000;
+}
+
+.measure {
+    color:#FFF;
+    font-size:11px;
+    text-align:center;
+}
+
+.space {
+    padding:15px;
+}
+
+.left {
+    background-color:#e33;
+    float:left;
+}
+
+.right {
+    background-color:#77c;
+    float:right;
+    
+}

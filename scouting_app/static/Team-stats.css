@@ -1,0 +1,63 @@
+body{
+  background-color:#000;
+}
+
+h2 {
+  color:#FFF;
+  text-align:center;
+}
+
+p {
+  color:#FFF;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.rank {
+  color:#fff;
+  background-color:#a71f28;
+  border-radius:100px;
+  border:5px solid;
+  border-color:#fff;
+  margin-left:auto;
+  margin-right:50px;
+  font-size:15px;
+  padding:10px;
+  width:30px;
+}  
+
+table {
+  color:#FFF;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  margin-bottom:40px;
+  border-collapse:collapse;
+}
+
+.criterion {
+  font-weight: bold;
+  border:none;
+}
+
+
+td {
+  width:80px;
+  height:25px;
+  border:1px solid;
+  border-collapse:collapse;
+  border-color:#FFF;
+}
+  
+.yes {
+  background-color:#0d5;
+}
+
+.no {
+  background-color:#f53;
+}
+
+.unknown {
+  background-color:#aaa;
+}

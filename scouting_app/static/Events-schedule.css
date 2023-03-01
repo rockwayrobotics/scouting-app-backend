@@ -1,0 +1,66 @@
+body {
+  background-color:#FFF;
+}
+  
+table {
+	background-color:#bbb;
+  border:none;
+  border-collapse:collapse;
+}
+
+th {
+    border:none;
+    text-align:left;
+    background-color:#FFF;
+
+}
+
+td {
+	border:1px solid;
+  border-collapse:collapse;
+  border-color:#FFf;
+  padding:3px;
+}
+
+a {
+  text-decoration:underline;
+  color:#000;
+}
+
+a:hover{
+  color:#fff;
+}
+
+.left {
+	width:45%;
+  float:left;
+  margin-left:3%;
+}
+
+.right {
+	width:45%;
+	float:right;
+  margin-right:3%;
+  color:#a71f28;
+}
+
+.current {
+	background-color:#000;
+    color:#FFF;
+    border:none;
+}
+
+.upnext {
+	background-color:#555;
+    color:#ccc;
+}
+    
+.redwin {
+	color:#300;
+    background-color:#e66;
+}
+
+.bluewin {
+	background-color:#69b;
+    color:#005;
+}
