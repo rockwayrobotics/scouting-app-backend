@@ -1,5 +1,7 @@
 include .env
 
+YEAR = 2023
+
 run: format scss runserver
 
 setup: clean install migrate TBA admin
@@ -22,7 +24,7 @@ migrate:
 
 TBA: db.sqlite3
 	@echo "\nFetching TBA data...\n"
-	@pipenv run python manage.py setupEvent
+	@pipenv run python manage.py setupEvent --year ${YEAR}
 
 admin:
 	@echo "\nCreating Admin superuser...\n"
