@@ -3,7 +3,7 @@
 {% block header %}Team {{ team.number }} ({{ team.name }}){% endblock %}
 
 {% block content %}
-<div class="match">
+<div class="team">
     <h3>Events</h3>
     {% for event in events%}
         <div onclick="filterEvent('{{ event.registered_event.id }}')" style="cursor: pointer;">
@@ -12,15 +12,17 @@
     {% endfor %}
     <br />
     (click event name to filter matches)
-</div>
 
-<div style="float: left; width:45%;">
-    <h3>Matches <span style="display: none; cursor:pointer; font-size:12px;" id="clearAllFilters" onclick="clearFilter()">[clear filter]</span></h3>
-    {% for match in matches %}
-        <div class="match event{{ match.linked_event.id }}">
-            <a href="/event/{{ match.linked_event.id }}/match/{{ match.match_number }}/">Match {{ match.match_number }}<span class='eventName'> - {{ match.linked_event }}</span></a>
-        </div>
-    {% endfor %}
+<details>
+<summary>Matches</summary>
+	<div class="long-list"><div class="list">
+	<ul>
+   		{% for match in matches %}
+		<li><a href="/event/{{ match.linked_event.id }}/match/{{ match.match_number }}/">Match {{ match.match_number }}<span class='eventName'> - {{ match.linked_event }}</span></a></li>
+   		{% endfor %}
+	</ul>
+	</div></div>
+</details>
 </div>
 
 <script>

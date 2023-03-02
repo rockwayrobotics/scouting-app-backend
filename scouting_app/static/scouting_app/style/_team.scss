@@ -1,12 +1,12 @@
 .team {
-	.list ul {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-evenly;
+	@include dropdown;
+	@include long-list;
+	@include center-flexbox;
+	flex-direction: column;
+	padding-bottom: 10px;
+	flex-basis: 100%;
 
-		li {
-			flex-basis: 25%;
-			padding-bottom: 15px;
-		}
+	details {
+		margin: 10px;
 	}
 }

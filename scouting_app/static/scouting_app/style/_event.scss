@@ -4,40 +4,6 @@
 	flex-flow: row;
 	align-content: stretch;
 
-	details {
-		border: 2px solid $subtext-color;
-		border-radius: 5px;
-		padding: 0.5em 0.5em 0;
-
-		&[open] {
-			padding: 0.5em;
-
-			summary {
-				border-bottom: 2px solid $subtext-color;
-				margin-bottom: 0.5em;
-			}
-		}
-	}
-
-	summary {
-		font-weight: bold;
-		margin: -0.5em -0.5em 0;
-		padding: 0.5em;
-	}
-
-	.long-list {
-		flex-basis: 50%;
-		align-content: stretch;
-
-		.list ul {
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-evenly;
-
-			li {
-				flex-basis: 25%;
-				padding-bottom: 15px;
-			}
-		}
-	}
+	@include dropdown;
+	@include long-list;
 }

@@ -4,7 +4,6 @@
 
 {% block content  %}
 <div class="event">
-<div class="long-list">
 <details open="true">
 	<summary>Match List</summary>
     {% if unique_match_list %}
@@ -19,9 +18,7 @@
         <p>No matches are available.</p>
     {% endif %}
 </details>
-</div>
 <br />
-<div class="long-list">
 <details open="true">
 	<summary>Team List</summary>
     {% if attending_teams %}
@@ -36,6 +33,5 @@
         <p>No matches are available.</p>
     {% endif %}
 </details>
-</div>
 </div>
 {% endblock %}

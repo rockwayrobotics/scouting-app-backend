@@ -39,6 +39,49 @@ $blueteam-color: #458588;
 	}
 }
 
+@mixin dropdown {
+	details {
+		flex-basis: 50%;
+		border-radius: 5px;
+		padding: 0.5em 0.5em 0;
+		overflow: auto;
+
+		&[open] {
+			padding: 0.5em;
+
+			summary {
+				margin-bottom: 0.5em;
+			}
+		}
+	}
+
+	summary {
+		font-weight: bold;
+		margin: -0.5em -0.5em 0;
+		padding: 0.5em;
+		cursor: pointer;
+	}
+	
+}
+
+@mixin long-list {
+	.list {
+		flex-basis: 50%;
+		align-content: stretch;
+
+		ul {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-evenly;
+		}
+
+		li {
+			flex-basis: 25%;
+			padding-bottom: 15px;
+		}
+	}
+}
+
 @import './style/base';
 @import './style/navbar';
 @import './style/event';
