@@ -4,8 +4,9 @@ The backend app for FIRST Competition scouting.
 ## Technologies
 - Python (🚀 BLAZINGLY SLOW 🚀 MEMORY UNSAFE 🚀)
 - OpenCV - Reading QR's
-- Django - Frontend
-- SQLite - DB
+- Django - Webserver
+- SQLite - Backend Database
+- black - Code Formatter
 
 ## Developing
 
