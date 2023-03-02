@@ -7,12 +7,7 @@ The backend app for FIRST Competition scouting.
 - Django - Frontend
 - SQLite - DB
 
-## Functionality
-- Frontend webapp GUI
-- QR code reading
-- Algorithms to rank teams
-
-## Steps
+## Developing
 
 ### Environment Variables
 You'll need to create a `.env` file that contains the values for the **Django** secret keys, **The Blue Alliance** authentication key, as well as the port you want the webserver to listen on.
@@ -25,10 +20,19 @@ DJANGO_PORT=8000
 
 ### Makefile
 ```bash
-make setup # install dependencies & migrate DB
+make setup # clean old folders, install dependencies, migrate DB, and fetch TBA data
 make run # run the server
+```
 
-make clean # (optional)
+Additional commands:
+```bash
+make scss # generate the SCSS files
+make format # format Python code
+make runserver # just run the Django server
+make clean # clean up directories and files
+make migrate # migrate database
+make TBA # fetch TBA data
+make admin # create admin user
 ```
 
 ### Manually
