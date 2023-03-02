@@ -3,25 +3,35 @@
 {% block header %}{{ event.name }} {% endblock %}
 
 {% block content  %}
-<div style="float: right; width:50%;">
-    <h3>Match List</h3>
+<div class="event">
+<details open="true">
+	<summary>Match List</summary>
     {% if unique_match_list %}
-        {% for match in unique_match_list %}
-            <div><a href="match/{{ match.0 }}/">Match {{ match.0 }}</a></div>
-        {% endfor %}
+		<div class="list">
+		<ul>
+        	{% for match in unique_match_list %}
+				<li><a href="match/{{ match.0 }}/">Match {{ match.0 }}</a></li>
+        	{% endfor %}
+		</ul>
+		</div>
     {% else %}
         <p>No matches are available.</p>
     {% endif %}
-</div>
+</details>
 <br />
-<div style="float: right; width:50%;">
-    <h3>Team List</h3>
+<details open="true">
+	<summary>Team List</summary>
     {% if attending_teams %}
-        {% for registration in attending_teams %}
-            <div><a href="team/{{ registration.registered_team.number }}/">Team {{ registration.registered_team.number }}</a></div>
-        {% endfor %}
+		<div class="list">
+		<ul>
+        	{% for registration in attending_teams %}
+				<li><a href="team/{{ registration.registered_team.number }}/">Team {{ registration.registered_team.number }}</a></li>
+        	{% endfor %}
+		</ul>
+		</div>
     {% else %}
         <p>No matches are available.</p>
     {% endif %}
+</details>
 </div>
 {% endblock %}

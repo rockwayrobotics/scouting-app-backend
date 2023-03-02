@@ -3,102 +3,84 @@
 {% block header %}{{ event.name }}{% endblock %}
 
 {% block content %}
-<table style="width: 100%;">
-    <tr>
-        <td style="text-align: left;">
-            {% if prevMatch != 0 %}
-                <a href="/event/{{ event_number }}/match/{{ prevMatch }}"><<<</a>
-            {% endif %}
-        </td>
-        <td><h2>Match {{ match_number }}</h2></td>
-        <td style="text-align: right;"><a href="/event/{{ event_number }}/match/{{ nextMatch }}">>>></a></td>
-    </tr>
+<div class="match">
 
-</table>
+<ul>
+	{% if prevMatch != 0 %}
+	<li><h2><a href="/event/{{ event_number }}/match/{{ prevMatch }}">←</a></h2></li>
+	{% endif %}
+	<li><h2>Match {{ match_number }}</h2></li>
+	<li><h2><a href="/event/{{ event_number }}/match/{{ nextMatch }}">→</a></h2></li>
+</ul>
 
 {% if latest_match_list %}
-<div style="float: left; width:45%;" class="redAlliance">
-    <h3>Red Alliance - {{ r_score }}  {% if winner == 'Red' %}****{% endif %}</h3>
-    {% for match in latest_match_list %}
-        {% if match.alliance == 'red' %}
-            <div style="border: solid 1px #ccc">
-                <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
-                <table>
-                    <tr>
-                        <td>Auto score</td>
-                        <td>{{ match.auto_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Auto move</td>
-                        <td>{{ match.auto_move }}</td>
-                    </tr>
-                    <tr>
-                        <td>Teleop score</td>
-                        <td>{{ match.teleop_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Endgame score</td>
-                        <td>{{ match.endgame_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Endgame time</td>
-                        <td>{{ match.endgame_time }}</td>
-                    </tr>
-                    <tr>
-                        <td>Tippy</td>
-                        <td>{{ match.tippy }}</td>
-                    </tr>
-                    <tr>
-                        <td>Disabled</td>
-                        <td>{{ match.diabled }}</td>
-                    </tr>
-                </table>
-            </div>
+<div class="redAlliance">
+	<h3>{% if winner == 'Red' %}👑 {% endif %}Red Alliance - <i>{{ r_score }}</i></h3>
+	<table>
+		<thead>
+			<th>Team #</th>
+			<th>Auto Score</th>
+			<th>Auto Move</th>
+			<th>TeleOp Score</th>
+			<th>Endgame Score</th>
+			<th>Endgame Time</th>
+			<th>Tippy</th>
+			<th>Disabled</th>
+		</thead>
+		<tbody>
+    	{% for match in latest_match_list %}
+    	{% if match.alliance == 'red' %}
+		<tr>
+			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
+            <td>{{ match.auto_score }}</td>
+            <td>{{ match.auto_move }}</td>
+            <td>{{ match.teleop_score }}</td>
+            <td>{{ match.endgame_score }}</td>
+            <td>{{ match.endgame_time }}</td>
+            <td>{{ match.tippy }}</td>
+            <td>{{ match.disabled }}</td>
+		</tr>
         {% endif %}
-    {% endfor %}
+    	{% endfor %}
+		</tbody>
+	</table>
 </div>
-<div style="float: left; width:45%" class="blueAlliance">
-    <h3>Blue Alliance - {{ b_score }} {% if winner == 'Blue' %}****{% endif %}</h3>
-        {% for match in latest_match_list %}
-        {% if match.alliance == 'blue' %}
-            <div style="border: solid 1px #ccc">
-                <a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a>
-                <table>
-                    <tr>
-                        <td>Auto score</td>
-                        <td>{{ match.auto_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Auto move</td>
-                        <td>{{ match.auto_move }}</td>
-                    </tr>
-                    <tr>
-                        <td>Teleop score</td>
-                        <td>{{ match.teleop_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Endgame score</td>
-                        <td>{{ match.endgame_score }}</td>
-                    </tr>
-                    <tr>
-                        <td>Endgame time</td>
-                        <td>{{ match.endgame_time }}</td>
-                    </tr>
-                    <tr>
-                        <td>Tippy</td>
-                        <td>{{ match.tippy }}</td>
-                    </tr>
-                    <tr>
-                        <td>Disabled</td>
-                        <td>{{ match.diabled }}</td>
-                    </tr>
-                </table>
-            </div>
+
+<div class="blueAlliance">
+	<h3>{% if winner == 'Blue' %}👑 {% endif %}Blue Alliance - <i>{{ b_score }}</i></h3>
+	<table>
+		<thead>
+			<th>Team #</th>
+			<th>Auto Score</th>
+			<th>Auto Move</th>
+			<th>TeleOp Score</th>
+			<th>Endgame Score</th>
+			<th>Endgame Time</th>
+			<th>Tippy</th>
+			<th>Disabled</th>
+		</thead>
+		<tbody>
+    	{% for match in latest_match_list %}
+    	{% if match.alliance == 'blue' %}
+		<tr>
+			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
+            <td>{{ match.auto_score }}</td>
+            <td>{{ match.auto_move }}</td>
+            <td>{{ match.teleop_score }}</td>
+            <td>{{ match.endgame_score }}</td>
+            <td>{{ match.endgame_time }}</td>
+            <td>{{ match.tippy }}</td>
+            <td>{{ match.disabled }}</td>
+		</tr>
         {% endif %}
-    {% endfor %}
+    	{% endfor %}
+		</tbody>
+	</table>
+
 </div>
 
 {% else %}
     <p>No team data is available for this match.</p>
 {% endif %}
+</div>
 {% endblock %}

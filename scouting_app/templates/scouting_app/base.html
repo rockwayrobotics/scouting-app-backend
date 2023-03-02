@@ -1,29 +1,38 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="{% static 'scouting_app/assets/favicon.ico' %}">
 	
-	<link rel="stylesheet" href="{% static 'style.css' %}">
+	{% compress css %}
+	<link type="text/x-scss" href="{% static 'scouting_app/style.scss' %}" rel="stylesheet" media="screen">
+	{% endcompress %}
+
 	{% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | 8089 Scouting App</title>
 </head>
 
 <body>
-	<header>
-		<div class="navigation">
-			<a href="/">Home</a> |
-			<a href="/event">Events</a> |
-			<a href="/team">Teams</a>
-		</div>
-		<h1>{% block header %}{% endblock %}</h1>
-	</header>
-    <div id="content">
+	<div class="container">
+	<nav>
+		<ul>
+			<li><a class="button" href="/">Home</a></li>
+			<li><a class="button" href="/event">Events</a></li>
+			<li><a class="button" href="/team">Teams</a></li>
+		</ul>
+	</nav>
+	<h1>{% block header %}{% endblock %}</h1>
+
+    <div class="content">
         {% block content %}{% endblock %}
     </div>
+
 	<footer>
 		<!--<button>Scan QR</button>-->
 	</footer>
+	</div>
 </body>
 </html>

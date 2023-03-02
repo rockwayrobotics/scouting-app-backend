@@ -1,0 +1,9 @@
+.event {
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	align-content: stretch;
+
+	@include dropdown;
+	@include long-list;
+}

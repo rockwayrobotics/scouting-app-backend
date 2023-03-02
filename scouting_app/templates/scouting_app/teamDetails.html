@@ -3,56 +3,26 @@
 {% block header %}Team {{ team.number }} ({{ team.name }}){% endblock %}
 
 {% block content %}
-<div style="float: left; width:45%;">
-    <h3>Events</h3>
-    {% for event in events%}
-        <div onclick="filterEvent('{{ event.registered_event.id }}')" style="cursor: pointer;">
-            {{ event.registered_event }}
-        </div>
-    {% endfor %}
-    <br />
-    (click event name to filter matches)
+<div class="team">
+<details open="true">
+<summary>Events</summary>
+	<div class="list">
+	<ul class="events">
+    	{% for event in events %}
+		<li><a href="/event/{{ event.registered_event.id }}/">{{ event.registered_event }}</a></li>
+    	{% endfor %}
+	</ul>
+	</div>
+</details>
+<details>
+	<summary>Matches</summary>
+	<div class="list">
+	<ul>
+   		{% for match in matches %}
+		<li><a href="/event/{{ match.linked_event.id }}/match/{{ match.match_number }}/">Match {{ match.match_number }}<span class='eventName'> - {{ match.linked_event }}</span></a></li>
+   		{% endfor %}
+	</ul>
+	</div>
+</details>
 </div>
-
-<div style="float: left; width:45%;">
-    <h3>Matches <span style="display: none; cursor:pointer; font-size:12px;" id="clearAllFilters" onclick="clearFilter()">[clear filter]</span></h3>
-    {% for match in matches %}
-        <div class="match event{{ match.linked_event.id }}">
-            <a href="/event/{{ match.linked_event.id }}/match/{{ match.match_number }}/">Match {{ match.match_number }}<span class='eventName'> - {{ match.linked_event }}</span></a>
-        </div>
-    {% endfor %}
-</div>
-
-<script>
-    function filterEvent(id) {
-        document.getElementById('clearAllFilters').style.display = 'inline';
-        let eventNames = document.getElementsByClassName('eventName');
-        for(i=0;i<eventNames.length;i++) {
-            eventNames[i].style.display = "none";
-        }
-
-        let allMatches = document.getElementsByClassName('match');
-        for(i=0;i<allMatches.length;i++) {
-            allMatches[i].style.display = "none";
-        }
-            
-        let selectedMatches = document.getElementsByClassName('event'+id);
-        for(i=0;i<selectedMatches.length;i++) {
-            selectedMatches[i].style.display = "block";
-        }
-    }
-
-    function clearFilter() {
-        document.getElementById('clearAllFilters').style.display = 'none';
-
-        let eventNames = document.getElementsByClassName('eventName');
-        for(i=0;i<eventNames.length;i++) {
-            eventNames[i].style.display = "inline";
-        }
-        let allMatches = document.getElementsByClassName('match');
-        for(i=0;i<allMatches.length;i++) {
-            allMatches[i].style.display = "block";
-        }
-    }
-</script>
 {% endblock %}

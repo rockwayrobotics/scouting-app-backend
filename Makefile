@@ -1,12 +1,10 @@
 include .env
 
-run:
-	@echo "Formatting code...\n"
-	@pipenv run black *.py
-	@pipenv run black **/*.py
-	@echo "\nRunning server...\n"
-	@pipenv run python manage.py runserver ${DJANGO_PORT}
-	@exit
+run: format scss runserver
+
+setup: clean install migrate TBA admin
+
+YEAR =
 
 clean:
 	@echo "Cleaning up..."
@@ -14,13 +12,40 @@ clean:
 	@rm -f db.sqlite3
 	@rm -f db.sqlite3-journal
 	@rm -f *.log
+	@rm -rf static/
 
-setup:
+install:
 	@echo "Installing dependencies...\n"
 	@pipenv install
+
+migrate:
 	@echo "\nMigrating database...\n"
 	@pipenv run python manage.py migrate
+
+TBA:
+ifeq ($(strip $(YEAR)),)
 	@echo "\nFetching TBA data...\n"
-	@pipenv run python manage.py setupEvent"
+	@pipenv run python manage.py setupEvent
+else
+	@echo "\nFetching TBA data...\n"
+	@pipenv run python manage.py setupEvent --year ${YEAR}
+endif
+
+admin:
 	@echo "\nCreating Admin superuser...\n"
 	@pipenv run python manage.py createsuperuser
+
+format:
+	@echo "Formatting code...\n"
+	@pipenv run black *.py
+	@pipenv run black **/*.py
+
+scss:
+	@echo "\nGenerating SCSS...\n"
+	@pipenv run python manage.py collectstatic --no-input
+
+
+runserver:
+	@echo "\nRunning server...\n"
+	@pipenv run python manage.py runserver ${DJANGO_PORT}
+	@exit

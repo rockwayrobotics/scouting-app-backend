@@ -4,10 +4,14 @@
 
 {% block content %}
 {% if latest_event_list %}
+<div class="list">
+	<ul>
     {% for event in latest_event_list %}
-        <div><a href="{{ event.id }}/">{{ event.name }}</a></div>
+		<li><a href="{{ event.id }}/">{{ event.name }}</a></li>
     {% endfor %}
+	</ul>
+</div>
 {% else %}
-    <p>No events are available.</p>
+<p>No events are available.</p>
 {% endif %}
 {% endblock %}

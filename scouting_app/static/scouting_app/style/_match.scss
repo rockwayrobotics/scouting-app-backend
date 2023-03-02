@@ -1,0 +1,50 @@
+@mixin table-element($color) {
+	border: 2px solid $color;
+	border-radius: 5px;
+	padding: 0.5rem;
+}
+
+@mixin match-table($color) {
+	td {
+		@include table-element($color);
+		color: $color;
+	}
+
+	th, td.highlight {
+		@include table-element($color);
+		background: $color;
+		color: $bg;
+	}
+
+	a {
+		color: $bg;
+		text-decoration: underline;
+
+		&:hover {
+			color: $bg2;
+		}
+	}
+}
+
+.redAlliance {
+	@include match-table($red);
+}
+
+.blueAlliance {
+	@include match-table($blue);
+}
+
+.match {
+	ul {
+		@include center-flexbox;
+		flex-direction: row;
+		justify-content: center;
+
+		list-style: none;
+		padding-left: 0px;
+
+		li {
+			padding: 10px;
+		}
+	}
+}
