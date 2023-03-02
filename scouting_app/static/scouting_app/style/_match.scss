@@ -1,8 +1,17 @@
+@mixin table-element($color) {
+	border: 2px solid $color;
+	border-radius: 5px;
+	padding: 0.5rem;
+}
+
 @mixin match-table($color) {
-	td, th {
-		border: 2px solid $color;
-		border-radius: 5px;
-		padding: 0.5rem;
+	td {
+		@include table-element($color);
+		color: $color;
+	}
+
+	th {
+		@include table-element($color);
 		background: $color;
 		color: $lighttext-color;
 	}
