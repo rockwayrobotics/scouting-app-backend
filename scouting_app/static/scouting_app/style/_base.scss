@@ -44,3 +44,8 @@ a {
 span {
 	display: none;
 }
+
+::selection {
+	color: $bg;
+	background-color: $text;
+}

@@ -5,6 +5,7 @@
 }
 
 @mixin button($col1, $col2, $col3, $base) {
+	cursor: pointer;
 	background: $col1;
 	color: $base;
 	box-shadow: 0 5px 0 $col3;

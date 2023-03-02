@@ -1,3 +1,40 @@
+@mixin button-reset {
+	background: none;
+	color: none;
+	box-shadow: none;
+
+	&:hover {
+		background: none;
+		color: none;
+	}
+}
+
+@mixin input-button {
+	input.button, button {
+		outline: none;
+		border: none;
+		@include button($link, $link2, $link-h, $bg);
+	}
+}
+
+@mixin qrcode {
+	#reader {
+		@include center-flexbox;
+		padding-bottom: 10px;
+		flex-flow: row wrap;
+		gap: 10px;
+
+		border: 2px solid $link !important;
+		border-radius: 5px !important;
+
+		@include input-button;
+
+		img {
+			filter: invert(65%) sepia(65%) saturate(4249%) hue-rotate(349deg) brightness(105%) contrast(99%);
+		}
+	}
+}
+
 @mixin form {
 	form {
 		.formBlock {
@@ -10,18 +47,8 @@
 		.dataBlock {
 			flex-basis: 50%;
 			@include center-flexbox;
-			justify-content: space-between;
-		}
-
-		.button {
-			background: none;
-			color: none;
-			box-shadow: none;
-
-			&:hover {
-				background: none;
-				color: none;
-			}
+			justify-content: right;
+			gap: 30px;
 		}
 
 		button, input, select, textarea {
@@ -44,9 +71,29 @@
 			position: absolute;
 			bottom: 0;
 			right: 0;
-			align-self: flex-start;
+			align-self: flex-end;
 			flex-basis: 50%;
 		}
+
+		label {
+			font-weight: bold;
+		}
+
+		input, textarea {
+			border: solid 1px $link;
+			padding: 0 10px;
+			margin: 0;
+			background: $bg2;
+			color: $text;
+
+			&:focus, &:focus-visible {
+				border: solid 2px $link;
+				outline: none;
+				background: $link-h;
+			}
+		}
+		
+		@include input-button;
 	}
 }
 
@@ -55,7 +102,10 @@
 	padding-bottom: 10px;
 	flex-flow: row;
 
-	.qrcode { flex-basis: 50%; }
+	.qrcode {
+		@include qrcode;
+		flex-basis: 25%;
+	}
 
 	.form {
 		flex-basis: 50%;
