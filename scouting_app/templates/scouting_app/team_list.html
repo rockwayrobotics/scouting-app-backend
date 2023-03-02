@@ -5,6 +5,7 @@
 {% block content %}
 {% if teams %}
 <div class="team">
+<div>
 <div class="list">
 	<ul>
     	{% for team in teams %}
@@ -15,5 +16,6 @@
 {% else %}
     <p>No teams are available.</p>
 {% endif %}
+</div>
 </div>
 {% endblock %}

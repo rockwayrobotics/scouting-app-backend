@@ -2,13 +2,14 @@ nav {
 	ul {
 		@include center-flexbox;
 		flex-direction: row;
+		justify-content: space-between;
 
 		list-style: none;
+		padding-left: 0px;
+		gap: 10px;
 	}
 
-	a {
-		font-size: 1.2em;
-		font-weight: bold;
-		padding: 10px;
+	li {
+		flex-basis: 30%;
 	}
 }

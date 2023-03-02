@@ -1,13 +1,13 @@
-$base-color: #f9f5d7;
-$text-color: #282828;
-$subtext-color: #504945;
-$lighttext-color: #ebdbb2;
-$header-color: #3c3836;
-$link-color: #689d6a;
-$link-hcolor: #427b58;
+$base-color: #fbf1c7;
+$base-color2: #ebdbb2;
+$text-color: #3c3836;
+$subtext-color: #7c6f64;
+$link-color: #d65d0e;
+$link-color2: #c1530c;
+$link-hcolor: #af3a03;
 
-$redteam: #cc241d;
-$blueteam: #458f88;
+$redteam-color: #cc241d;
+$blueteam-color: #458588;
 
 @mixin center-flexbox {
 	display: flex;
@@ -15,6 +15,29 @@ $blueteam: #458f88;
 	align-items: center;
 }
 
+@mixin button($col1, $col2, $col3, $base) {
+	background: $col1;
+	color: $base;
+	box-shadow: 0 5px 0 $col3;
+
+	text-transform: uppercase;
+	text-decoration: none;
+	border-radius: 5px;
+
+	padding: 0.5em;
+	position: relative;
+
+	&:hover {
+		background: $col2;
+		text-decoration: none;
+		color: $base;
+	}
+
+	&:active {
+		box-shadow: none;
+		top: 5px;
+	}
+}
 
 @import './style/base';
 @import './style/navbar';

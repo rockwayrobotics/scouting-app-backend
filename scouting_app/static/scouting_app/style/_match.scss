@@ -21,17 +21,17 @@
 		text-decoration: underline;
 
 		&:hover {
-			color: $lighttext-color;
+			color: $base-color2;
 		}
 	}
 }
 
 .redAlliance {
-	@include match-table($redteam);
+	@include match-table($redteam-color);
 }
 
 .blueAlliance {
-	@include match-table($blueteam);
+	@include match-table($blueteam-color);
 }
 
 .match {

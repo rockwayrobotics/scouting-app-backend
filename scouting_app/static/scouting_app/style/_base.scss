@@ -7,16 +7,20 @@ body {
 	line-height: 1.5;
 }
 
-h1, h2, h3 { color: $header-color; }
-
 a {
 	color: $link-color;
 	text-decoration: none;
 
+
 	&:hover {
 		color: $link-hcolor;
 		text-decoration: underline;
+		cursor: pointer;
 	}
+}
+
+.button {
+	@include button($link-color, $link-color2, $link-hcolor, $base-color);
 }
 
 .container {
