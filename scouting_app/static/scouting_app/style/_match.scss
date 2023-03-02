@@ -10,10 +10,19 @@
 		color: $color;
 	}
 
-	th {
+	th, td.highlight {
 		@include table-element($color);
 		background: $color;
-		color: $lighttext-color;
+		color: $base-color;
+	}
+
+	a {
+		color: $base-color;
+		text-decoration: underline;
+
+		&:hover {
+			color: $lighttext-color;
+		}
 	}
 }
 
@@ -29,7 +38,13 @@
 	ul {
 		@include center-flexbox;
 		flex-direction: row;
+		justify-content: center;
 
 		list-style: none;
+		padding-left: 0px;
+
+		li {
+			padding: 10px;
+		}
 	}
 }

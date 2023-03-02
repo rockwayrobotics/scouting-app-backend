@@ -4,6 +4,7 @@ body {
 	
 	font-family: "Cantarell", "Calibri", sans-serif;
 	text-align: center;
+	line-height: 1.5;
 }
 
 h1, h2, h3 { color: $header-color; }
@@ -12,7 +13,10 @@ a {
 	color: $link-color;
 	text-decoration: none;
 
-	&:hover { color: $link-hcolor; }
+	&:hover {
+		color: $link-hcolor;
+		text-decoration: underline;
+	}
 }
 
 .container {

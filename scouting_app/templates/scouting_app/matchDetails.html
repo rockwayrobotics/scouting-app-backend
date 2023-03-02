@@ -6,15 +6,16 @@
 <div class="match">
 
 <ul>
-{% if prevMatch != 0 %}
-	<li><h2><a href="/event/{{ event_number }}/match/{{ prevMatch }}"></h3></li>
-{% endif %}	<li><h2>Match {{ match_number }}</h2></li>
-	<li><a href="/event/{{ event_number }}/match/{{ nextMatch }}"></a></li>
+	{% if prevMatch != 0 %}
+	<li><h2><a href="/event/{{ event_number }}/match/{{ prevMatch }}">←</a></h2></li>
+	{% endif %}
+	<li><h2>Match {{ match_number }}</h2></li>
+	<li><h2><a href="/event/{{ event_number }}/match/{{ nextMatch }}">→</a></h2></li>
 </ul>
 
 {% if latest_match_list %}
 <div class="redAlliance">
-	<h3>Red Alliance - {{ r_score }}  {% if winner == 'Red' %}👑{% endif %}</h3>
+	<h3>{% if winner == 'Red' %}👑 {% endif %}Red Alliance - <i>{{ r_score }}</i></h3>
 	<table>
 		<thead>
 			<th>Team #</th>
@@ -30,7 +31,7 @@
     	{% for match in latest_match_list %}
     	{% if match.alliance == 'red' %}
 		<tr>
-			<td><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
+			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
             <td>{{ match.auto_score }}</td>
             <td>{{ match.auto_move }}</td>
             <td>{{ match.teleop_score }}</td>
@@ -46,7 +47,7 @@
 </div>
 
 <div class="blueAlliance">
-    <h3>Blue Alliance - {{ b_score }} {% if winner == 'Blue' %}👑{% endif %}</h3>
+	<h3>{% if winner == 'Blue' %}👑 {% endif %}Blue Alliance - <i>{{ b_score }}</i></h3>
 	<table>
 		<thead>
 			<th>Team #</th>
@@ -62,7 +63,7 @@
     	{% for match in latest_match_list %}
     	{% if match.alliance == 'blue' %}
 		<tr>
-			<td><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
+			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
             <td>{{ match.auto_score }}</td>
             <td>{{ match.auto_move }}</td>
             <td>{{ match.teleop_score }}</td>

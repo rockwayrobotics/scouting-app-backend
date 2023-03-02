@@ -1,0 +1,12 @@
+.team {
+	.list ul {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+
+		li {
+			flex-basis: 25%;
+			padding-bottom: 15px;
+		}
+	}
+}
