@@ -1,0 +1,25 @@
+.event {
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	align-content: stretch;
+
+	.long-list {
+		flex-basis: 50%;
+		align-content: stretch;
+
+		border-right: solid 2px $subtext-color;
+		border-left: solid 2px $subtext-color;
+
+		.list ul {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-evenly;
+
+			li {
+				flex-basis: 25%;
+				padding-bottom: 15px;
+			}
+		}
+	}
+}

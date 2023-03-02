@@ -3,13 +3,15 @@
 {% block header %}Events List{% endblock %}
 
 {% block content %}
-<div class="event-list">
 {% if latest_event_list %}
+<div class="list">
+	<ul>
     {% for event in latest_event_list %}
-		<a href="{{ event.id }}/">{{ event.name }}</a>
-    {% endfor %}
-{% else %}
-    <p>No events are available.</p>
-{% endif %}
+			<li><a href="{{ event.id }}/">{{ event.name }}</a></li>
+    	{% endfor %}
+	</ul>
 </div>
+{% else %}
+<p>No events are available.</p>
+{% endif %}
 {% endblock %}

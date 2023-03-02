@@ -1,9 +1,22 @@
-$base-color: #fbf1c7;
+$base-color: #f9f5d7;
 $text-color: #282828;
 $subtext-color: #504945;
+$lighttext-color: #ebdbb2;
 $header-color: #3c3836;
-$link-color: #cc241d;
-$link-hcolor: #9d0006;
+$link-color: #689d6a;
+$link-hcolor: #427b58;
+
+$redteam: #cc241d;
+$blueteam: #458f88;
+
+@mixin center-flexbox {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
 
 @import './style/base';
 @import './style/navbar';
+@import './style/event';
+@import './style/match';

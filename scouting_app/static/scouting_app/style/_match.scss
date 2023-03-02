@@ -1,0 +1,26 @@
+@mixin match-table($color) {
+	td, th {
+		border: 2px solid $color;
+		border-radius: 5px;
+		padding: 0.5rem;
+		background: $color;
+		color: $lighttext-color;
+	}
+}
+
+.redAlliance {
+	@include match-table($redteam);
+}
+
+.blueAlliance {
+	@include match-table($blueteam);
+}
+
+.match {
+	ul {
+		@include center-flexbox;
+		flex-direction: row;
+
+		list-style: none;
+	}
+}
