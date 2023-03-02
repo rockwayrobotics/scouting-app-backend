@@ -21,6 +21,7 @@ DJANGO_PORT=8000
 
 ### Makefile
 ```bash
+# you can manually specify a year to fetch TBA data from by appending YEAR=<year> to the command
 make setup # clean old folders, install dependencies, migrate DB, and fetch TBA data
 make run # run the server
 ```

@@ -4,6 +4,8 @@ run: format scss runserver
 
 setup: clean install migrate TBA admin
 
+YEAR =
+
 clean:
 	@echo "Cleaning up..."
 	@rm -rf __pycache__/
@@ -20,9 +22,14 @@ migrate:
 	@echo "\nMigrating database...\n"
 	@pipenv run python manage.py migrate
 
-TBA: db.sqlite3
+TBA:
+ifeq ($(strip $(YEAR)),)
 	@echo "\nFetching TBA data...\n"
 	@pipenv run python manage.py setupEvent
+else
+	@echo "\nFetching TBA data...\n"
+	@pipenv run python manage.py setupEvent --year ${YEAR}
+endif
 
 admin:
 	@echo "\nCreating Admin superuser...\n"
