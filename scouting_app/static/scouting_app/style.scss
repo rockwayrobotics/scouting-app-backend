@@ -1,14 +1,3 @@
-$base-color: #fbf1c7;
-$base-color2: #ebdbb2;
-$text-color: #3c3836;
-$subtext-color: #7c6f64;
-$link-color: #d65d0e;
-$link-color2: #c1530c;
-$link-hcolor: #af3a03;
-
-$redteam-color: #cc241d;
-$blueteam-color: #458588;
-
 @mixin center-flexbox {
 	display: flex;
 	justify-content: space-evenly;
@@ -82,6 +71,7 @@ $blueteam-color: #458588;
 	}
 }
 
+@import './style/color-themes';
 @import './style/base';
 @import './style/navbar';
 @import './style/event';

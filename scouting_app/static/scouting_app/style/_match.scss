@@ -13,25 +13,25 @@
 	th, td.highlight {
 		@include table-element($color);
 		background: $color;
-		color: $base-color;
+		color: $bg;
 	}
 
 	a {
-		color: $base-color;
+		color: $bg;
 		text-decoration: underline;
 
 		&:hover {
-			color: $base-color2;
+			color: $bg2;
 		}
 	}
 }
 
 .redAlliance {
-	@include match-table($redteam-color);
+	@include match-table($red);
 }
 
 .blueAlliance {
-	@include match-table($blueteam-color);
+	@include match-table($blue);
 }
 
 .match {

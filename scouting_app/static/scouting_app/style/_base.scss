@@ -1,6 +1,6 @@
 body {
-	background-color: $base-color;
-	color: $text-color;
+	background-color: $bg;
+	color: $text;
 	
 	font-family: "Cantarell", "Calibri", sans-serif;
 	text-align: center;
@@ -8,19 +8,19 @@ body {
 }
 
 a {
-	color: $link-color;
+	color: $link;
 	text-decoration: none;
 
 
 	&:hover {
-		color: $link-hcolor;
+		color: $link-h;
 		text-decoration: underline;
 		cursor: pointer;
 	}
 }
 
 .button {
-	@include button($link-color, $link-color2, $link-hcolor, $base-color);
+	@include button($link, $link2, $link-h, $bg);
 }
 
 .container {
@@ -39,4 +39,8 @@ a {
 	li {
 		padding-bottom: 5px;
 	}
+}
+
+span {
+	display: none;
 }
