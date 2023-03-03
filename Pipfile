@@ -13,6 +13,7 @@ black = "*"
 matplotlib = "*"
 django-compressor = "*"
 django-libsass = "*"
+pandas = "*"
 
 [dev-packages]
 

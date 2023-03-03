@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 import threading
 from random import seed, randint
+
 from .models import MatchResult
 
 plt.style.use("dark_background")
@@ -70,8 +72,6 @@ def generate_rank(team_data):
 
         deviation[i] = np.std(field)
 
-    # threading.Thread(target=plt_save, args=(team_data[0],)).start()
-
     averages = np.average(crop_results, axis=0)  # get the averages
     difference = np.multiply(np.subtract(averages, expected_avg), 2)
     weighted_avg = difference * weights  # weight the averages
@@ -95,3 +95,30 @@ def generate_rankedteam(team):
         "id": team.number,
         "rank": generate_rank(matrix),
     }
+
+
+def analyze_data(ranked_teams):
+    teams = []
+    avg_auto = []
+    avg_tele = []
+    avg_end = []
+    ranking = []
+
+    for i in ranked_teams:
+        teams.append(i["id"])
+        avg_auto.append(i["rank"]["avg_autoscore"])
+        avg_tele.append(i["rank"]["avg_telescore"])
+        avg_end.append(i["rank"]["avg_endscore"])
+        ranking.append(i["rank"]["ranking"])
+
+    rankings = pd.DataFrame(
+        {
+            "Auto": avg_auto,
+            "Teleop": avg_tele,
+            "End": avg_end,
+            "Rank": ranking,
+        },
+        index=teams,
+    )
+
+    print(rankings)
