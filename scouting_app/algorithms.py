@@ -109,9 +109,9 @@ def analyze_data(match_list):
             {
                 "match": i.match_number,
                 "team": i.linked_team.number,
-                "event": i.linked_event.event_key,
+                "event_key": i.linked_event.event_key,
                 "alliance": i.alliance,
-                "recorded_time": i.recorded_time,
+                "recorded_time": i.recorded_time.timestamp(),
                 "auto_score": i.auto_score,
                 "teleop_score": i.teleop_score,
                 "endgame_score": i.endgame_score,
@@ -123,22 +123,50 @@ def analyze_data(match_list):
     data = pd.DataFrame(matches)
     data["rank"] = data["final_score"].rank(method="max")
 
-    print(data.sort_values(by="rank"))
-
-    # visualize(data)
+    visualize(data)
 
 
 def visualize(rankings):
     mpl.style.use("mocha")
 
-    # Score vs. Event
+    scores = []
+
+    for index, row in rankings.iterrows():
+        scores.append(
+            {
+                "score": row.auto_score,
+                "timestamp": row.recorded_time,
+                "type": "auto",
+                "event": row.event_key,
+            }
+        )
+        scores.append(
+            {
+                "score": row.teleop_score,
+                "timestamp": row.recorded_time,
+                "type": "teleop",
+                "event": row.event_key,
+            }
+        )
+        scores.append(
+            {
+                "score": row.endgame_score,
+                "timestamp": row.recorded_time,
+                "type": "endgame",
+                "event": row.event_key,
+            }
+        )
+
+    scores = pd.DataFrame(scores)
+
+    # Score vs. Time
     g = sns.lmplot(
-        data=rankings["final_score"].rank(method="max").head(5),
-        x="match",
-        y="final_score",
-        hue="team",
+        data=scores,
+        x="timestamp",
+        y="score",
+        hue="type",
+        col="event",
     )
-    g.set_axis_labels("Match", "Final Score")
-    g.legend.set_title("Team")
-    g.figure.set_size_inches(12, 5)
-    plt.savefig("rank_vs_auto.png")
+    g.set_axis_labels("Timestamp", "Score")
+    g.legend.set_title("Period")
+    plt.savefig("score_vs_time.png")
