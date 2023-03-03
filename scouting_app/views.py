@@ -212,9 +212,11 @@ def vis_test(request):
 
 
 def rank(request):
+    match_list = MatchResult.objects.order_by("recorded_time")
+
     teams_list = Team.objects.order_by("number")
     ranked_teams = map(generate_rankedteam, teams_list)
-    threading.Thread(target=analyze_data, args=(ranked_teams,)).start()
+    threading.Thread(target=analyze_data, args=(match_list,)).start()
 
     context = {"ranked_teams": ranked_teams}
     return render(request, "scouting_app/rank.html", context)

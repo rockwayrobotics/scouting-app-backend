@@ -1,12 +1,14 @@
 import numpy as np
+import seaborn as sns
+import seaborn.objects as so
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import mplcatppuccin
 import pandas as pd
 import threading
 from random import seed, randint
 
 from .models import MatchResult
-
-plt.style.use("dark_background")
 
 
 class color:
@@ -39,6 +41,7 @@ def fake_data(match_list):
 # generate a `results_matrix` from the `MatchResult`
 def generate_matrix(match_list):
     seed()
+
     results_matrix = np.empty((0, 3))
 
     # get what we want out of the matches
@@ -97,28 +100,45 @@ def generate_rankedteam(team):
     }
 
 
-def analyze_data(ranked_teams):
-    teams = []
-    avg_auto = []
-    avg_tele = []
-    avg_end = []
-    ranking = []
+def analyze_data(match_list):
+    match_list = MatchResult.objects.order_by("recorded_time")
+    matches = []
 
-    for i in ranked_teams:
-        teams.append(i["id"])
-        avg_auto.append(i["rank"]["avg_autoscore"])
-        avg_tele.append(i["rank"]["avg_telescore"])
-        avg_end.append(i["rank"]["avg_endscore"])
-        ranking.append(i["rank"]["ranking"])
+    for i in match_list:
+        matches.append(
+            {
+                "match": i.match_number,
+                "team": i.linked_team.number,
+                "event": i.linked_event.event_key,
+                "alliance": i.alliance,
+                "recorded_time": i.recorded_time,
+                "auto_score": i.auto_score,
+                "teleop_score": i.teleop_score,
+                "endgame_score": i.endgame_score,
+                "final_score": i.alliance_final_score,
+                "penalties": i.penalty,
+            }
+        )
 
-    rankings = pd.DataFrame(
-        {
-            "Auto": avg_auto,
-            "Teleop": avg_tele,
-            "End": avg_end,
-            "Rank": ranking,
-        },
-        index=teams,
+    data = pd.DataFrame(matches)
+    data["rank"] = data["final_score"].rank(method="max")
+
+    print(data.sort_values(by="rank"))
+
+    # visualize(data)
+
+
+def visualize(rankings):
+    mpl.style.use("mocha")
+
+    # Score vs. Event
+    g = sns.lmplot(
+        data=rankings["final_score"].rank(method="max").head(5),
+        x="match",
+        y="final_score",
+        hue="team",
     )
-
-    print(rankings)
+    g.set_axis_labels("Match", "Final Score")
+    g.legend.set_title("Team")
+    g.figure.set_size_inches(12, 5)
+    plt.savefig("rank_vs_auto.png")
