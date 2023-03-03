@@ -212,7 +212,7 @@ def vis_test(request):
 
 def rank(request):
     teams_list = Team.objects.order_by("number")
-    ranked_teams = {}
+    ranked_teams = []
 
     for i in teams_list:
         match_list = MatchResult.objects.filter(linked_team=i).order_by("recorded_time")
@@ -222,7 +222,12 @@ def rank(request):
 
         team_data = (i.number, matrix)
 
-        ranked_teams[i.number] = generate_rank(team_data)
+        ranked_teams.append(
+            {
+                "id": i.number,
+                "rank": generate_rank(team_data),
+            }
+        )
 
     context = {"ranked_teams": ranked_teams}
     return render(request, "scouting_app/rank.html", context)

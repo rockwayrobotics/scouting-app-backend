@@ -13,11 +13,11 @@
 			<th>Final Rank</th>
 		</thead>
 		<tbody>
-    	{% for key, value in ranked_teams.items %}
+    	{% for team in ranked_teams|dictsortreversed:"rank.ranking" %}
 		<tr>
-			<td class="highlight"><a href="/team/{{ key }}/">Team {{ key }}</a></td>
-			{% for k2, v2 in value.items %}
-            	<td>{{ v2 }}</td>
+			<td class="highlight"><a href="/team/{{ team.id }}/">Team {{ team.id }}</a></td>
+			{% for key, val in team.rank.items %}
+				<td>{{ val|floatformat }}</td>
 			{% endfor %}
 		</tr>
     	{% endfor %}
