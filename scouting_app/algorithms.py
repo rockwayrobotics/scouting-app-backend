@@ -53,53 +53,26 @@ def generate_matrix(match_list):
     return results_matrix
 
 
-def plt_save(team):
-    plt.title(str(team) + " Match Results")
-    plt.legend(title="Field:")
-    plt.xlabel("Match")
-    plt.ylabel("Points")
-    plt.savefig("results.png")
-    plt.close()
-
-
 # Generate a ranking value from a `results_matrix`
 def generate_rank(team_data):
     np.set_printoptions(precision=3, suppress=True)
-    results_matrix = team_data[1]
+    results_matrix = team_data
     crop_results = results_matrix[2:-2]
 
     weights = np.array([1, 1, 1])
     expected_avg = np.array([12, 25, 40])
 
-    prop_cycle = plt.rcParams["axes.prop_cycle"]
-    colors = prop_cycle.by_key()["color"]
     deviation = np.empty(3)
 
     for i in range(0, 3):
         field = np.array([])
         field = crop_results[:, i]
 
-        field_name = ""
-        color = ""
-        match i:
-            case 0:
-                field_name = "Auto"
-                color = colors[0]
-            case 1:
-                field_name = "Teleop"
-                color = colors[1]
-            case 2:
-                field_name = "Endgame"
-                color = colors[2]
-
         deviation[i] = np.std(field)
-        plt.plot(field, label=field_name + " Origin", alpha=0.6, color=color)
-        plt.axhline(expected_avg[i], color=color, alpha=0.2)
 
-    threading.Thread(target=plt_save, args=(team_data[0],)).start()
+    # threading.Thread(target=plt_save, args=(team_data[0],)).start()
 
     averages = np.average(crop_results, axis=0)  # get the averages
-    print(averages)
     difference = np.multiply(np.subtract(averages, expected_avg), 2)
     weighted_avg = difference * weights  # weight the averages
 
@@ -112,4 +85,13 @@ def generate_rank(team_data):
         "avg_telescore": averages[1],
         "avg_endscore": averages[2],
         "ranking": total,
+    }
+
+
+def generate_rankedteam(team):
+    match_list = MatchResult.objects.filter(linked_team=team).order_by("recorded_time")
+    matrix = generate_matrix(match_list)
+    return {
+        "id": team.number,
+        "rank": generate_rank(matrix),
     }

@@ -8,7 +8,7 @@ from django.shortcuts import render
 from .models import MatchResult, Event, Team, Registration
 
 from .opencv import exe
-from .algorithms import generate_matrix, generate_rank, fake_data
+from .algorithms import generate_rankedteam
 
 
 def index(request):
@@ -212,22 +212,7 @@ def vis_test(request):
 
 def rank(request):
     teams_list = Team.objects.order_by("number")
-    ranked_teams = []
-
-    for i in teams_list:
-        match_list = MatchResult.objects.filter(linked_team=i).order_by("recorded_time")
-        # match_list = fake_data(match_list)
-
-        matrix = generate_matrix(match_list)
-
-        team_data = (i.number, matrix)
-
-        ranked_teams.append(
-            {
-                "id": i.number,
-                "rank": generate_rank(team_data),
-            }
-        )
+    ranked_teams = map(generate_rankedteam, teams_list)
 
     context = {"ranked_teams": ranked_teams}
     return render(request, "scouting_app/rank.html", context)
