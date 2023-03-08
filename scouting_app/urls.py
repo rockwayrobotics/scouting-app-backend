@@ -29,7 +29,7 @@ urlpatterns = [
     path("entry_page/", views.entry_page, name="entry-page"),
     path("events_schedule/", views.events_schedule, name="events-schedule"),
     path("matches_schedule/", views.matches_schedule, name="matches-schedule"),
-    path("rank/", views.rank, name="rank"),
+    # path("rank/", views.rank, name="rank"),
     path("team_stats/", views.team_stats, name="team-stats"),
     path("match_stats/", views.match_stats, name="match-stats"),
 ]

@@ -1,0 +1,385 @@
+/* Light Theme */
+/* Dark Theme */
+/* line 1, scouting_app/static/scouting_app/style/_base.scss */
+body {
+  background-color: #282828;
+  color: #ebdbb2;
+  font-family: "Cantarell", "Calibri", sans-serif;
+  text-align: center;
+  line-height: 1.5; }
+
+/* line 10, scouting_app/static/scouting_app/style/_base.scss */
+a {
+  color: #fe8019;
+  text-decoration: none; }
+  /* line 15, scouting_app/static/scouting_app/style/_base.scss */
+  a:hover {
+    color: #d65d0e;
+    text-decoration: underline;
+    cursor: pointer; }
+
+/* line 22, scouting_app/static/scouting_app/style/_base.scss */
+.button {
+  cursor: pointer;
+  background: #fe8019;
+  color: #282828;
+  box-shadow: 0 5px 0 #d65d0e;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 0.5em;
+  position: relative; }
+  /* line 20, scouting_app/static/scouting_app/style.scss */
+  .button:hover {
+    background: #cb6614;
+    text-decoration: none;
+    color: #282828; }
+  /* line 26, scouting_app/static/scouting_app/style.scss */
+  .button:active {
+    box-shadow: none;
+    top: 5px; }
+
+/* line 26, scouting_app/static/scouting_app/style/_base.scss */
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column; }
+
+/* line 32, scouting_app/static/scouting_app/style/_base.scss */
+.list ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  list-style: none; }
+
+/* line 39, scouting_app/static/scouting_app/style/_base.scss */
+.list li {
+  padding-bottom: 5px; }
+
+/* line 44, scouting_app/static/scouting_app/style/_base.scss */
+span {
+  display: none; }
+
+/* line 48, scouting_app/static/scouting_app/style/_base.scss */
+::selection {
+  color: #282828;
+  background-color: #ebdbb2; }
+
+/* line 2, scouting_app/static/scouting_app/style/_navbar.scss */
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+  padding-left: 0px;
+  gap: 10px; }
+
+/* line 12, scouting_app/static/scouting_app/style/_navbar.scss */
+nav li {
+  flex-basis: 25%; }
+
+/* line 1, scouting_app/static/scouting_app/style/_event.scss */
+.event {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  align-content: stretch; }
+  /* line 33, scouting_app/static/scouting_app/style.scss */
+  .event details {
+    flex-basis: 50%;
+    border-radius: 5px;
+    padding: 0.5em 0.5em 0;
+    overflow: auto; }
+    /* line 39, scouting_app/static/scouting_app/style.scss */
+    .event details[open] {
+      padding: 0.5em; }
+      /* line 42, scouting_app/static/scouting_app/style.scss */
+      .event details[open] summary {
+        margin-bottom: 0.5em; }
+  /* line 48, scouting_app/static/scouting_app/style.scss */
+  .event summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+    cursor: pointer; }
+  /* line 58, scouting_app/static/scouting_app/style.scss */
+  .event .list {
+    flex-basis: 50%;
+    align-content: stretch; }
+    /* line 62, scouting_app/static/scouting_app/style.scss */
+    .event .list ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly; }
+    /* line 68, scouting_app/static/scouting_app/style.scss */
+    .event .list li {
+      flex-basis: 25%;
+      padding-bottom: 15px; }
+
+/* line 8, scouting_app/static/scouting_app/style/_match.scss */
+.redAlliance td {
+  border: 2px solid #fb4934;
+  border-radius: 5px;
+  padding: 0.5rem;
+  color: #fb4934; }
+
+/* line 13, scouting_app/static/scouting_app/style/_match.scss */
+.redAlliance th, .redAlliance td.highlight {
+  border: 2px solid #fb4934;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background: #fb4934;
+  color: #282828; }
+
+/* line 19, scouting_app/static/scouting_app/style/_match.scss */
+.redAlliance a {
+  color: #282828;
+  text-decoration: underline; }
+  /* line 23, scouting_app/static/scouting_app/style/_match.scss */
+  .redAlliance a:hover {
+    color: #3c3836; }
+
+/* line 8, scouting_app/static/scouting_app/style/_match.scss */
+.blueAlliance td {
+  border: 2px solid #83a598;
+  border-radius: 5px;
+  padding: 0.5rem;
+  color: #83a598; }
+
+/* line 13, scouting_app/static/scouting_app/style/_match.scss */
+.blueAlliance th, .blueAlliance td.highlight {
+  border: 2px solid #83a598;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background: #83a598;
+  color: #282828; }
+
+/* line 19, scouting_app/static/scouting_app/style/_match.scss */
+.blueAlliance a {
+  color: #282828;
+  text-decoration: underline; }
+  /* line 23, scouting_app/static/scouting_app/style/_match.scss */
+  .blueAlliance a:hover {
+    color: #3c3836; }
+
+/* line 38, scouting_app/static/scouting_app/style/_match.scss */
+.match ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  padding-left: 0px; }
+  /* line 46, scouting_app/static/scouting_app/style/_match.scss */
+  .match ul li {
+    padding: 10px; }
+
+/* line 1, scouting_app/static/scouting_app/style/_team.scss */
+.team {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+  flex-basis: 100%;
+  flex-flow: column; }
+  /* line 33, scouting_app/static/scouting_app/style.scss */
+  .team details {
+    flex-basis: 50%;
+    border-radius: 5px;
+    padding: 0.5em 0.5em 0;
+    overflow: auto; }
+    /* line 39, scouting_app/static/scouting_app/style.scss */
+    .team details[open] {
+      padding: 0.5em; }
+      /* line 42, scouting_app/static/scouting_app/style.scss */
+      .team details[open] summary {
+        margin-bottom: 0.5em; }
+  /* line 48, scouting_app/static/scouting_app/style.scss */
+  .team summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+    cursor: pointer; }
+  /* line 58, scouting_app/static/scouting_app/style.scss */
+  .team .list {
+    flex-basis: 50%;
+    align-content: stretch; }
+    /* line 62, scouting_app/static/scouting_app/style.scss */
+    .team .list ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly; }
+    /* line 68, scouting_app/static/scouting_app/style.scss */
+    .team .list li {
+      flex-basis: 25%;
+      padding-bottom: 15px; }
+  /* line 9, scouting_app/static/scouting_app/style/_team.scss */
+  .team .list .events {
+    flex-flow: column;
+    justify-content: center; }
+  /* line 14, scouting_app/static/scouting_app/style/_team.scss */
+  .team details {
+    margin: 10px; }
+
+/* line 100, scouting_app/static/scouting_app/style/_scan.scss */
+.input {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+  flex-flow: row; }
+  /* line 105, scouting_app/static/scouting_app/style/_scan.scss */
+  .input .qrcode {
+    flex-basis: 25%; }
+    /* line 21, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .qrcode #reader {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding-bottom: 10px;
+      flex-flow: row wrap;
+      gap: 10px;
+      border: 2px solid #fe8019 !important;
+      border-radius: 5px !important; }
+      /* line 13, scouting_app/static/scouting_app/style/_scan.scss */
+      .input .qrcode #reader input.button, .input .qrcode #reader button {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background: #fe8019;
+        color: #282828;
+        box-shadow: 0 5px 0 #d65d0e;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 5px;
+        padding: 0.5em;
+        position: relative; }
+        /* line 20, scouting_app/static/scouting_app/style.scss */
+        .input .qrcode #reader input.button:hover, .input .qrcode #reader button:hover {
+          background: #cb6614;
+          text-decoration: none;
+          color: #282828; }
+        /* line 26, scouting_app/static/scouting_app/style.scss */
+        .input .qrcode #reader input.button:active, .input .qrcode #reader button:active {
+          box-shadow: none;
+          top: 5px; }
+      /* line 32, scouting_app/static/scouting_app/style/_scan.scss */
+      .input .qrcode #reader img {
+        filter: invert(65%) sepia(65%) saturate(4249%) hue-rotate(349deg) brightness(105%) contrast(99%); }
+  /* line 110, scouting_app/static/scouting_app/style/_scan.scss */
+  .input .form {
+    flex-basis: 50%; }
+    /* line 40, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form .formBlock {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding-bottom: 10px;
+      flex-flow: row wrap;
+      gap: 10px; }
+    /* line 47, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form .dataBlock {
+      flex-basis: 50%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      justify-content: right;
+      gap: 30px; }
+    /* line 54, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form button, .input .form form input, .input .form form select, .input .form form textarea {
+      font-family: inherit;
+      font-size: 100%;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      border-radius: 5px; }
+    /* line 64, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form fieldset {
+      position: relative;
+      align-self: flex-end;
+      flex-basis: 50%; }
+    /* line 70, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form legend {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      align-self: flex-end;
+      flex-basis: 50%; }
+    /* line 78, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form label {
+      font-weight: bold; }
+    /* line 82, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form input, .input .form form textarea {
+      border: solid 1px #fe8019;
+      padding: 0 10px;
+      margin: 0;
+      background: #3c3836;
+      color: #ebdbb2; }
+      /* line 89, scouting_app/static/scouting_app/style/_scan.scss */
+      .input .form form input:focus, .input .form form input:focus-visible, .input .form form textarea:focus, .input .form form textarea:focus-visible {
+        border: solid 2px #fe8019;
+        outline: none;
+        background: #d65d0e; }
+    /* line 13, scouting_app/static/scouting_app/style/_scan.scss */
+    .input .form form input.button, .input .form form button {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: #fe8019;
+      color: #282828;
+      box-shadow: 0 5px 0 #d65d0e;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 5px;
+      padding: 0.5em;
+      position: relative; }
+      /* line 20, scouting_app/static/scouting_app/style.scss */
+      .input .form form input.button:hover, .input .form form button:hover {
+        background: #cb6614;
+        text-decoration: none;
+        color: #282828; }
+      /* line 26, scouting_app/static/scouting_app/style.scss */
+      .input .form form input.button:active, .input .form form button:active {
+        box-shadow: none;
+        top: 5px; }
+
+/* line 2, scouting_app/static/scouting_app/style/_rank.scss */
+.rank ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  padding-left: 0px; }
+  /* line 10, scouting_app/static/scouting_app/style/_rank.scss */
+  .rank ul li {
+    padding: 10px; }
+
+/* line 8, scouting_app/static/scouting_app/style/_match.scss */
+.rank td {
+  border: 2px solid #d3869b;
+  border-radius: 5px;
+  padding: 0.5rem;
+  color: #d3869b; }
+
+/* line 13, scouting_app/static/scouting_app/style/_match.scss */
+.rank th, .rank td.highlight {
+  border: 2px solid #d3869b;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background: #d3869b;
+  color: #282828; }
+
+/* line 19, scouting_app/static/scouting_app/style/_match.scss */
+.rank a {
+  color: #282828;
+  text-decoration: underline; }
+  /* line 23, scouting_app/static/scouting_app/style/_match.scss */
+  .rank a:hover {
+    color: #3c3836; }

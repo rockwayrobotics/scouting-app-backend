@@ -13,8 +13,19 @@ class Event(models.Model):
 
 
 class Team(models.Model):
+    # metadata
     number = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
+
+    # Pit
+    width = models.FloatField(default=0)
+    scoring_locations = models.BinaryField()  # 2D array of positions
+    pickup_locations = models.BinaryField()
+    swerve = models.BooleanField(default=False)
+
+    tippy = models.BooleanField(default=False)
+    scoring_consistency = models.IntegerField(default=0)
+    average_scoring_time = models.TimeField()
 
     def __str__(self):
         return "Team " + str(self.number)
@@ -42,24 +53,26 @@ class MatchResult(models.Model):
     recorded_time = models.DateTimeField(default=datetime.datetime.now)
 
     # auto
-    auto_score = models.IntegerField(default=0)
+    auto_balance = models.BooleanField(default=False)
     auto_move = models.BooleanField(default=False)
 
     # teleop
-    teleop_score = models.IntegerField(default=0)
+    teleop_balance = models.BooleanField(default=False)
 
     # endgame
+    parked = models.BooleanField(default=False)
     endgame_score = models.IntegerField(default=0)
     endgame_time = models.FloatField(default=0)
 
     # penalty
     penalty = models.IntegerField(default=0)
-    tippy = models.BooleanField(default=False)
     disabled = models.BooleanField(default=False)
 
     alliance_final_score = models.IntegerField(default=0)
 
-    # comments
+    # misc.
+    cycle_time = models.TimeField()
+    pickup_time = models.TimeField()
     scouter_comments = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
@@ -69,7 +82,3 @@ class MatchResult(models.Model):
             + " Team "
             + str(self.linked_team.number)
         )
-
-
-# class pitScout(models.Model):
-#     # metadata
