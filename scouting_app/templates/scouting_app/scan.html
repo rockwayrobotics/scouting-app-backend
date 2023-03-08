@@ -79,12 +79,8 @@
             </div>
             </div>
 
-            <div class="button clear">
-                <input type="button" value="Clear" onclick="clearForm()">
-            </div>
-            <div class="button">
-                <input type="submit" value="Submit Data">
-            </div>
+                <input class="button" type="button" value="Clear" onclick="clearForm()">
+                <input class="button" type="submit" value="Submit Data">
         </form>
     </div>
 </div>
@@ -102,7 +98,9 @@
         document.getElementById(key).value = my_dict[key];
     }
 </script>
-<script src="/static/html5-qrcode.min.js"></script>
-<script src="/static/scanner.js"></script>
+
+{% load static %}
+<script src="{% static 'scouting_app/js/html5-qrcode.min.js' %}"></script>
+<script src="{% static 'scouting_app/js/scanner.js' %}"></script>
 
 {% endblock %}

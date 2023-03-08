@@ -1,4 +1,5 @@
 import json
+import threading
 from datetime import datetime
 from django.http import HttpResponse
 from django.views import View
@@ -8,6 +9,7 @@ from django.shortcuts import render
 from .models import MatchResult, Event, Team, Registration
 
 from .opencv import exe
+from .algorithms import generate_rankedteam, analyze_data
 
 
 def index(request):
@@ -207,3 +209,14 @@ def match_stats(request):
 def vis_test(request):
     exe()
     return HttpResponse("Beans")
+
+
+def rank(request):
+    match_list = MatchResult.objects.order_by("recorded_time")
+
+    teams_list = Team.objects.order_by("number")
+    ranked_teams = map(generate_rankedteam, teams_list)
+    threading.Thread(target=analyze_data, args=(match_list,)).start()
+
+    context = {"ranked_teams": ranked_teams}
+    return render(request, "scouting_app/rank.html", context)

@@ -13,6 +13,9 @@ black = "*"
 matplotlib = "*"
 django-compressor = "*"
 django-libsass = "*"
+pandas = "*"
+seaborn = "*"
+catppuccin-matplotlib = "*"
 
 [dev-packages]
 

@@ -1,0 +1,27 @@
+{% extends "scouting_app/base.html" %}
+{% block title %} Ranking {% endblock %}
+{% block header %}Ranking{% endblock %}
+
+{% block content %}
+<div class="rank">
+	<table>
+		<thead>
+			<th>Team #</th>
+			<th>Auto Score</th>
+			<th>Teleop Score</th>
+			<th>Endgame Score</th>
+			<th>Final Rank</th>
+		</thead>
+		<tbody>
+    	{% for team in ranked_teams|dictsortreversed:"rank.ranking" %}
+		<tr>
+			<td class="highlight"><a href="/team/{{ team.id }}/">Team {{ team.id }}</a></td>
+			{% for key, val in team.rank.items %}
+				<td>{{ val|floatformat }}</td>
+			{% endfor %}
+		</tr>
+    	{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

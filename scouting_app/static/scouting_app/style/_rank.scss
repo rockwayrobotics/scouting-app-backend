@@ -1,15 +1,16 @@
-nav {
+.rank {
 	ul {
 		@include center-flexbox;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
 
 		list-style: none;
 		padding-left: 0px;
-		gap: 10px;
-	}
 
-	li {
-		flex-basis: 25%;
+		li {
+			padding: 10px;
+		}
 	}
+	
+	@include match-table($purple);
 }
