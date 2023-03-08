@@ -111,7 +111,7 @@ def analyze_data(match_list):
                 "team": i.linked_team.number,
                 "event_key": i.linked_event.event_key,
                 "alliance": i.alliance,
-                "recorded_time": i.recorded_time.timestamp(),
+                "recorded_time": i.recorded_time,
                 "auto_score": i.auto_score,
                 "teleop_score": i.teleop_score,
                 "endgame_score": i.endgame_score,
@@ -121,15 +121,17 @@ def analyze_data(match_list):
         )
 
     data = pd.DataFrame(matches)
-    data["rank"] = data["final_score"].rank(method="max")
+    # data["rank"] = data["final_score"].rank(method="max")
 
-    visualize(data)
+    print(data.head(5))
+
+    # visualize(data)
 
 
 def visualize(rankings):
     mpl.style.use("mocha")
 
-    scores = []
+    # scores = rankings.pivot(index="recorded_time", columns="
 
     for index, row in rankings.iterrows():
         scores.append(
