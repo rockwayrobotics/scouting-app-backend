@@ -2,14 +2,13 @@ include .env
 
 run: format scss runserver
 
-setup: clean install migrate admin
+setup: clean install migrate admin TBA
 
 YEAR =
 
 clean:
 	@echo "Cleaning up..."
 	@rm -rf __pycache__/
-	@rm -rf scouting_app/migrations/
 	@rm -f db.sqlite3
 	@rm -f db.sqlite3-journal
 	@rm -f *.log

@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from django.utils import timezone
 
 
 class Event(models.Model):
@@ -19,13 +20,13 @@ class Team(models.Model):
 
     # Pit
     width = models.FloatField(default=0)
-    scoring_locations = models.BinaryField()  # 2D array of positions
-    pickup_locations = models.BinaryField()
+    scoring_locations = models.BinaryField(default=b"\x08")  # 2D array of positions
+    pickup_locations = models.BinaryField(b"\x08")
     swerve = models.BooleanField(default=False)
 
     tippy = models.BooleanField(default=False)
     scoring_consistency = models.IntegerField(default=0)
-    average_scoring_time = models.TimeField()
+    average_scoring_time = models.TimeField(default=timezone.now())
 
     def __str__(self):
         return "Team " + str(self.number)
