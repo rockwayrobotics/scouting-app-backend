@@ -92,11 +92,13 @@ def generate_rank(team_data):
 
 
 def generate_rankedteam(team):
-    match_list = MatchResult.objects.filter(linked_team=team).order_by("recorded_time")
-    matrix = generate_matrix(match_list)
+    # match_list = MatchResult.objects.filter(linked_team=team).order_by("recorded_time")
+    # matrix = generate_matrix(match_list)
     return {
         "id": team.number,
-        "rank": generate_rank(matrix),
+        "width": team.width,
+        "swerve": team.swerve,
+        "tippy": team.tippy,
     }
 
 

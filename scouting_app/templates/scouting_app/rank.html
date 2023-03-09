@@ -7,18 +7,17 @@
 	<table>
 		<thead>
 			<th>Team #</th>
-			<th>Auto Score</th>
-			<th>Teleop Score</th>
-			<th>Endgame Score</th>
-			<th>Final Rank</th>
+			<th>Width</th>
+			<th>Serve</th>
+			<th>Tippy</th>
 		</thead>
 		<tbody>
-    	{% for team in ranked_teams|dictsortreversed:"rank.ranking" %}
+    	{% for team in teams %}
 		<tr>
 			<td class="highlight"><a href="/team/{{ team.id }}/">Team {{ team.id }}</a></td>
-			{% for key, val in team.rank.items %}
-				<td>{{ val|floatformat }}</td>
-			{% endfor %}
+			<td>{{ team.width|floatformat }}</td>
+			<td>{{ team.swerve }}</td>
+			<td>{{ team.tippy }}</td>
 		</tr>
     	{% endfor %}
 		</tbody>
