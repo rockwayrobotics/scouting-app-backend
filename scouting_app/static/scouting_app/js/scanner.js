@@ -12,7 +12,18 @@ function convertBinaryToObject(str) {
 
 function onScanSuccess(decodedText, decodedResult) {
 	console.log(`Code matched = ${decodedText}`, decodedResult);
-	console.log(convertBinaryToObject(decodedText));
+	
+	const binaryArray = decodedText
+  .split('')
+  .reduce((acc, next) =>
+    [...acc, next.charCodeAt(0)],
+    []
+  )
+	console.log(binaryArray);
+	var uncompressed = LZW.decompress(binaryArray);
+	console.log(uncompressed);
+	var b_str = convertBinaryToObject(uncompressed);
+	console.log(b_str);
 }
 
 function onScanFailure(error) {
