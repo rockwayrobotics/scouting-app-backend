@@ -20,6 +20,7 @@ class Team(models.Model):
 
     # Pit
     width = models.FloatField(default=0)
+    autos = models.CharField(max_length=200)
     scoring_locations = models.BinaryField(default=b"\x08")  # 2D array of positions
     pickup_locations = models.BinaryField(b"\x08")
     swerve = models.BooleanField(default=False)
