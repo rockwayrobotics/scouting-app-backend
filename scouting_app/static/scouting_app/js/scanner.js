@@ -1,29 +1,31 @@
 let soundplaying = false;
 
-function convertBinaryToObject(str) {
-	var newBin = str.split(" ");
-	var binCode = [];
-	for (i = 0; i < newBin.length; i++) {
-		binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
-	}
-	let jsonString = binCode.join("");
-	return JSON.parse(jsonString);
-}
-
 function onScanSuccess(decodedText, decodedResult) {
-	console.log(`Code matched = ${decodedText}`, decodedResult);
-	
 	const binaryArray = decodedText
   .split('')
   .reduce((acc, next) =>
     [...acc, next.charCodeAt(0)],
     []
   )
-	console.log(binaryArray);
 	var uncompressed = LZW.decompress(binaryArray);
 	console.log(uncompressed);
-	var b_str = convertBinaryToObject(uncompressed);
-	console.log(b_str);
+	
+	var splt = uncompressed.split(";");
+
+	var actions = ["hex","hex","x","x","bool","bool","bool","bool","hex","x","hex", "bool","hex"];
+
+	for (i in splt) {
+		switch (actions[i]) {
+			case "hex":
+				splt[i] = parseInt(splt[i], 16);
+				break;
+			case "bool":
+				splt[i] = parseInt(splt[i]);
+				break;
+			case "x": break;
+		};
+	}
+	console.log(splt);
 }
 
 function onScanFailure(error) {
