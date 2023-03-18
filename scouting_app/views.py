@@ -1,6 +1,6 @@
 import json
 import threading
-from datetime import datetime
+from datetime import datetime, time
 from django.http import HttpResponse
 from django.views import View
 from django.template import loader
@@ -153,26 +153,34 @@ def scan(request):
 
         # If entry doesn't exist, read data from form and save to DB
         if (
-            not MatchResult.objects.filter(match_number=int(form_data["match_no"][0]))
-            .filter(linked_team=Team.objects.get(number=int(form_data["team"][0])))
+            not MatchResult.objects.filter(
+                match_number=int(form_data["match_number"][0])
+            )
+            .filter(
+                linked_team=Team.objects.get(number=int(form_data["linked_team"][0]))
+            )
             .exists()
         ):
             MatchResult(
-                match_number=int(form_data["match_no"][0]),
-                linked_team=Team.objects.get(number=int(form_data["team"][0])),
-                linked_event=Event.objects.get(event_key=form_data["event"][0]),
-                recorded_time=datetime.strptime(
-                    form_data["time"][0], "%Y-%m-%dT%H:%M:%S.%f%z"
+                match_number=int(form_data["match_number"][0]),
+                linked_team=Team.objects.get(number=int(form_data["linked_team"][0])),
+                linked_event=Event.objects.get(event_key=form_data["linked_event"][0]),
+                alliance=form_data["alliance"][0],
+                auto_balance=bool(int(form_data["auto_balance"][0])),
+                auto_move=bool(int(form_data["auto_move"][0])),
+                teleop_balance=bool(int(form_data["teleop_balance"][0])),
+                parked=bool(int(form_data["parked"][0])),
+                endgame_score=int(form_data["endgame_score"][0]),
+                endgame_time=float(form_data["endgame_time"][0]),
+                penalty=int(form_data["penalty"][0]),
+                disabled=bool(int(form_data["disabled"][0])),
+                alliance_final_score=int(form_data["alliance_final_score"][0]),
+                scouter_comments=form_data["scouter_comments"][0],
+                recorded_time=datetime.utcfromtimestamp(
+                    int(form_data["recorded_time"][0])
                 ),
-                auto_score=int(form_data["auto"][0]),
-                auto_move=bool(int(form_data["a_move"][0])),
-                teleop_score=int(form_data["tele"][0]),
-                endgame_score=int(form_data["end"][0]),
-                endgame_time=float(form_data["e_time"][0]),
-                penalty=int(form_data["penal"][0]),
-                tippy=bool(int(form_data["tip"][0])),
-                disabled=bool(int(form_data["disab"][0])),
-                scouter_comments="test",
+                cycle_time=time.fromisoformat("04:23:01"),
+                pickup_time=time.fromisoformat("04:23:01"),
             ).save()
         else:
             print("match result already exists")

@@ -8,11 +8,9 @@ function onScanSuccess(decodedText, decodedResult) {
     []
   )
 	var uncompressed = LZW.decompress(binaryArray);
-	console.log(uncompressed);
-	
 	var splt = uncompressed.split(";");
 
-	var actions = ["hex","hex","x","x","bool","bool","bool","bool","hex","x","hex", "bool","hex"];
+	var actions = ["hex","hex","x","ally","bool","bool","bool","bool","hex","x","hex", "bool","hex", "x", "hex"];
 
 	for (i in splt) {
 		switch (actions[i]) {
@@ -22,10 +20,45 @@ function onScanSuccess(decodedText, decodedResult) {
 			case "bool":
 				splt[i] = parseInt(splt[i]);
 				break;
+			case "ally":
+				if (splt[i] == "B") {
+					splt[i] = "blue";
+				} else {
+					splt[i] = "red";
+				}
+				break;
 			case "x": break;
 		};
 	}
-	console.log(splt);
+
+	var data = {
+		"match_number": splt[0],
+		"linked_team": splt[1],
+		"linked_event": splt[2],
+		"alliance": splt[3],
+		"auto_balance": splt[4],
+		"auto_move": splt[5],
+		"teleop_balance": splt[6],
+		"parked": splt[7],
+		"endgame_score": splt[8],
+		"endgame_time": splt[9],
+		"penalty": splt[10],
+		"disabled": splt[11],
+		"alliance_final_score": splt[12],
+		"scouter_comments": splt[13],
+		"recorded_time": splt[14],
+	};
+	console.log(data);
+
+	for (var key in data) {
+		document.getElementById(key).value = data[key];
+	}
+
+	const auto_submit_box = document.getElementById('auto_submit');
+
+	if(auto_submit_box.checked) {
+		document.getElementById('myForm').submit();
+	}
 }
 
 function onScanFailure(error) {

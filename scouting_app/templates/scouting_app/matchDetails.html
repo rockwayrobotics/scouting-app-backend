@@ -19,26 +19,14 @@
 	<table>
 		<thead>
 			<th>Team #</th>
-			<th>Auto Score</th>
 			<th>Auto Move</th>
-			<th>TeleOp Score</th>
-			<th>Endgame Score</th>
-			<th>Endgame Time</th>
-			<th>Tippy</th>
-			<th>Disabled</th>
 		</thead>
 		<tbody>
     	{% for match in latest_match_list %}
     	{% if match.alliance == 'red' %}
 		<tr>
 			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
-            <td>{{ match.auto_score }}</td>
             <td>{{ match.auto_move }}</td>
-            <td>{{ match.teleop_score }}</td>
-            <td>{{ match.endgame_score }}</td>
-            <td>{{ match.endgame_time }}</td>
-            <td>{{ match.tippy }}</td>
-            <td>{{ match.disabled }}</td>
 		</tr>
         {% endif %}
     	{% endfor %}
@@ -51,26 +39,14 @@
 	<table>
 		<thead>
 			<th>Team #</th>
-			<th>Auto Score</th>
 			<th>Auto Move</th>
-			<th>TeleOp Score</th>
-			<th>Endgame Score</th>
-			<th>Endgame Time</th>
-			<th>Tippy</th>
-			<th>Disabled</th>
 		</thead>
 		<tbody>
     	{% for match in latest_match_list %}
     	{% if match.alliance == 'blue' %}
 		<tr>
 			<td class="highlight"><a href="/team/{{ match.linked_team.number }}/">Team {{ match.linked_team.number }}</a></td>
-            <td>{{ match.auto_score }}</td>
             <td>{{ match.auto_move }}</td>
-            <td>{{ match.teleop_score }}</td>
-            <td>{{ match.endgame_score }}</td>
-            <td>{{ match.endgame_time }}</td>
-            <td>{{ match.tippy }}</td>
-            <td>{{ match.disabled }}</td>
 		</tr>
         {% endif %}
     	{% endfor %}
